@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">GOGOPic</string>
+    <string name="text_login_terms">登录即代表阅读并同意服务条款</string>
+    <string name="text_login_account">账号</string>
+    <string name="text_login_password">密码</string>
+    <string name="text_login">登陆</string>
+    <string name="text_appname">GOGOPic</string>
+    <string name="text_home">主页</string>
+    <string name="text_mine">我的</string>
+</resources>

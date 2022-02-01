@@ -1,0 +1,10 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.GOGOPic" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/pink_dark</item>
+        <item name="colorPrimaryDark">@color/pink_light</item>
+        <item name="colorAccent">@color/pink_dark</item>
+
+    </style>
+</resources>
