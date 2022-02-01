@@ -28,6 +28,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="25dp"
             android:hint="@string/text_login_account"
+            android:lines="1"
             android:textColor="@color/black" />
 
         <EditText
@@ -35,6 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/text_login_password"
+            android:lines="1"
             android:password="true"
             android:textColor="@color/black"
             tools:ignore="Deprecated" />

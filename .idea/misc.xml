@@ -4,9 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Environment/Android/AndroidStudioProjects/GOGOPic/app/src/main/res/drawable-v24/navigation_bar_color.xml" value="0.1615" />
+        <entry key="..\:/Environment/Android/AndroidStudioProjects/GOGOPic/app/src/main/res/drawable-v24/shape_home_category_bg.xml" value="0.1225" />
         <entry key="..\:/Environment/Android/AndroidStudioProjects/GOGOPic/app/src/main/res/layout/activity_login.xml" value="0.2638888888888889" />
         <entry key="..\:/Environment/Android/AndroidStudioProjects/GOGOPic/app/src/main/res/layout/activity_main.xml" value="0.2564814814814815" />
-        <entry key="..\:/Environment/Android/AndroidStudioProjects/GOGOPic/app/src/main/res/layout/base_fragment_layout.xml" value="0.15260416666666668" />
+        <entry key="..\:/Environment/Android/AndroidStudioProjects/GOGOPic/app/src/main/res/layout/base_fragment_layout.xml" value="0.27025641025641023" />
+        <entry key="..\:/Environment/Android/AndroidStudioProjects/GOGOPic/app/src/main/res/layout/item_home_pager_content.xml" value="0.27025641025641023" />
         <entry key="..\:/Environment/Android/AndroidStudioProjects/GOGOPic/app/src/main/res/menu/navigation_items.xml" value="0.16302083333333334" />
       </map>
     </option>
