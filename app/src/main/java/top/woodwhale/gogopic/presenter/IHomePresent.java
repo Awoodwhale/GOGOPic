@@ -4,5 +4,8 @@ import top.woodwhale.gogopic.base.IBasePresenter;
 import top.woodwhale.gogopic.view.IHomeCallback;
 
 public interface IHomePresent extends IBasePresenter<IHomeCallback> {
+    /**
+     * 获取主页分类
+     */
     void getCategories();
 }

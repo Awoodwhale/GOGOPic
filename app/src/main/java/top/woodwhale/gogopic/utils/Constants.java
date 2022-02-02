@@ -1,6 +1,9 @@
 package top.woodwhale.gogopic.utils;
 
 public class Constants {
+    // SharedPreferences 中记录的用户名和密码
+    public static final String USERNAME_KEY = "GOGOPicUsername";
+    public static final String PASSWORD_KEY = "GOGOPicPassword";
     // base url
     public static final String BASE_URL = "https://picaapi.picacomic.com/";
     // key
@@ -12,6 +15,4 @@ public class Constants {
     public static String SIGNATURE = null;
     // 登录一次后获取的token
     public static String LOGIN_TOKEN = null;
-
-
 }

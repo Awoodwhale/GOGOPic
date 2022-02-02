@@ -3,9 +3,9 @@ package top.woodwhale.gogopic.ui.activity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -33,6 +33,7 @@ public class LoginActivity extends Activity implements ILoginCallback {
     private String mAccount;
     private String mPassword;
     private Unbinder mBind;
+    private boolean mIsLoggedIn = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,8 +41,29 @@ public class LoginActivity extends Activity implements ILoginCallback {
         setContentView(R.layout.activity_login);
         mBind = ButterKnife.bind(this);
 
-        initView();
+        checkIsLoggedIn();
         initPresenter();
+        initView();
+    }
+
+    private void checkIsLoggedIn() {
+        SharedPreferences settingInfo = this.getSharedPreferences("GOGOPicLogin", MODE_PRIVATE);
+        mAccount = settingInfo.getString(Constants.USERNAME_KEY,null);
+        mPassword = settingInfo.getString(Constants.PASSWORD_KEY,null);
+        if (mAccount != null && mPassword != null) {
+            mIsLoggedIn = true;
+            mAccountEt.setEnabled(false);
+            mPasswordEt.setEnabled(false);
+            mLoginBtn.setEnabled(false);
+        }
+    }
+
+    private void write2SharedPreferences(String account, String password) {
+        SharedPreferences settingInfo = this.getSharedPreferences("GOGOPicLogin", MODE_PRIVATE);
+        SharedPreferences.Editor edit = settingInfo.edit();
+        edit.putString(Constants.USERNAME_KEY,account);
+        edit.putString(Constants.PASSWORD_KEY,password);
+        edit.apply();
     }
 
     @Override
@@ -54,16 +76,18 @@ public class LoginActivity extends Activity implements ILoginCallback {
     }
 
     private void initView() {
-        mLoginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!TextUtils.isEmpty(mAccountEt.getText()) && !TextUtils.isEmpty(mPasswordEt.getText())) {
-                    mAccount = String.valueOf(mAccountEt.getText());
-                    mPassword = String.valueOf(mPasswordEt.getText());
-                    loadData();
-                } else {
-                    Toast.makeText(LoginActivity.this, "非法输入账号和密码!请重试!", Toast.LENGTH_SHORT).show();
-                }
+        // 如果可以从SharedPreferences中读取登录信息，那么就自动登录
+        if (mAccount != null && mPassword != null) {
+            loadData();
+            return;
+        }
+        mLoginBtn.setOnClickListener(v -> {
+            if (!TextUtils.isEmpty(mAccountEt.getText()) && !TextUtils.isEmpty(mPasswordEt.getText())) {
+                mAccount = String.valueOf(mAccountEt.getText());
+                mPassword = String.valueOf(mPasswordEt.getText());
+                loadData();
+            } else {
+                Toast.makeText(LoginActivity.this, "非法输入账号和密码!请重试!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -84,16 +108,17 @@ public class LoginActivity extends Activity implements ILoginCallback {
 
     @Override
     public void onNetworkError() {
+        Toast.makeText(this, "网络错误！请重试！", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onLoading() {
-
+        Toast.makeText(this, "登陆中...", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onEmpty() {
-
+        Toast.makeText(this, "服务器返回数据为空！请重试！", Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -103,6 +128,10 @@ public class LoginActivity extends Activity implements ILoginCallback {
     @Override
     public void onAuthenticateLoaded(AuthSignIn authSignIn) {
         if (Constants.LOGIN_TOKEN != null) {
+            if (!mIsLoggedIn) {
+                // 如果是第一次登录，就写入
+                write2SharedPreferences(mAccount,mPassword);
+            }
             LogUtils.d(this,"content --> "+Constants.LOGIN_TOKEN);
             Toast.makeText(this, "登陆成功！", Toast.LENGTH_SHORT).show();
             // 登录成功就将登录页面跳转到主页
@@ -110,7 +139,6 @@ public class LoginActivity extends Activity implements ILoginCallback {
             this.startActivity(intent);
             this.finish();
         }
-
     }
 
     /**

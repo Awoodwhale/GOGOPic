@@ -21,4 +21,7 @@ public interface API {
 
     @GET(UrlUtils.COMICS_URL)
     Call<ResponseBody> getComics(@HeaderMap Map<String, String> headerMap, @QueryMap Map<String,String> queryMap);
+
+    @GET(UrlUtils.USER_INFO_URL)
+    Call<UserInfo> getUserInfo(@HeaderMap Map<String, String> headerMap);
 }

@@ -54,7 +54,9 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
 
     @Override
     protected void loadData() {
-        mHomePresent.getCategories();
+        if (mHomePresent != null) {
+            mHomePresent.getCategories();
+        }
     }
 
     @Override

@@ -25,6 +25,9 @@ public class LoginPresenterImpl implements ILoginPresenter {
 
     @Override
     public void getAuthenticate(String account, String password) {
+        if (mCallback != null) {
+            mCallback.onLoading();
+        }
         // 登录
         Retrofit retrofit = RetrofitManager.getInstance().getRetrofit();
         API api = retrofit.create(API.class);
@@ -34,7 +37,7 @@ public class LoginPresenterImpl implements ILoginPresenter {
         task.enqueue(new Callback<AuthSignIn>() {
             @Override
             public void onResponse(@NonNull Call<AuthSignIn> call, @NonNull Response<AuthSignIn> response) {
-                LogUtils.d(LoginPresenterImpl.this,"code --> " + response.code());
+                LogUtils.d(LoginPresenterImpl.this,"login code --> " + response.code());
                 if (response.code() == 200 && mCallback != null) {
                     AuthSignIn authSignIn = response.body();
                     if (authSignIn == null || authSignIn.getData() == null) {
