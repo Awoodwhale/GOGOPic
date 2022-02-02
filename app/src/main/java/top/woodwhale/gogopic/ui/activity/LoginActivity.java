@@ -96,6 +96,10 @@ public class LoginActivity extends Activity implements ILoginCallback {
 
     }
 
+    /**
+     * 请求成功的回调
+     * @param authSignIn
+     */
     @Override
     public void onAuthenticateLoaded(AuthSignIn authSignIn) {
         if (Constants.LOGIN_TOKEN != null) {
@@ -107,6 +111,16 @@ public class LoginActivity extends Activity implements ILoginCallback {
             this.finish();
         }
 
+    }
+
+    /**
+     * 密码错误的回调
+     */
+    @Override
+    public void onAccountOrPasswordError() {
+        Toast.makeText(this, "账号或密码错误！", Toast.LENGTH_SHORT).show();
+        mAccountEt.setText("");
+        mPasswordEt.setText("");
     }
 
     private void release() {

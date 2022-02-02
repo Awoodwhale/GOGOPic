@@ -22,6 +22,9 @@
 
 
         <EditText
+            android:inputType="text"
+            android:imeOptions="actionNext"
+            android:nextFocusForward="@+id/et_pwd"
             android:textColorHighlight="@color/black"
             android:id="@+id/et_account"
             android:layout_width="match_parent"
@@ -32,14 +35,14 @@
             android:textColor="@color/black" />
 
         <EditText
+            android:imeOptions="actionDone"
             android:id="@+id/et_pwd"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/text_login_password"
             android:lines="1"
-            android:password="true"
-            android:textColor="@color/black"
-            tools:ignore="Deprecated" />
+            android:inputType="textPassword"
+            android:textColor="@color/black" />
 
         <Button
             android:layout_marginTop="10dp"

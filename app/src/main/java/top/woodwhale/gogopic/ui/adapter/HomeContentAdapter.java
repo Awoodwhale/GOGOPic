@@ -45,16 +45,9 @@ public class HomeContentAdapter extends RecyclerView.Adapter<HomeContentAdapter.
         return mCategoriesBeanList.size();
     }
 
-    public void setData(Categories categories) {
-        List<Categories.DataBean.CategoriesBean> categoriesBeanList = categories.getData().getCategories();
+    public void setData(List<Categories.DataBean.CategoriesBean> categories) {
         mCategoriesBeanList.clear();
-        for (Categories.DataBean.CategoriesBean categoriesBean : categoriesBeanList) {
-            Categories.DataBean.CategoriesBean.ThumbBean thumb = categoriesBean.getThumb();
-            String imgPath = thumb.getFileServer()+"/static/"+thumb.getPath();
-            if (imgPath.contains(".picacomic.")) {
-                mCategoriesBeanList.add(categoriesBean);
-            }
-        }
+        mCategoriesBeanList.addAll(categories);
         notifyDataSetChanged();
     }
 

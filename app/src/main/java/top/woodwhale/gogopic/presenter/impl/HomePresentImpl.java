@@ -2,6 +2,9 @@ package top.woodwhale.gogopic.presenter.impl;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,17 +44,18 @@ public class HomePresentImpl implements IHomePresent {
             @Override
             public void onResponse(@NonNull Call<Categories> call, @NonNull Response<Categories> response) {
                 LogUtils.d(HomePresentImpl.this,UrlUtils.CATEGORIES_URL +" code --> " + response.code());
-                assert mCallback != null;
-                if (response.code() == 200) {
+                if (response.code() == 200 && mCallback != null) {
                     Categories categories = response.body();
                     if (categories == null) {
                         mCallback.onEmpty();
                     } else {
                         // 成功就回调处理
-                        mCallback.onCategoriesLoaded(categories);
+                        mCallback.onCategoriesLoaded(handleCategories(categories));
                     }
                 } else {
-                    mCallback.onNetworkError();
+                    if (mCallback != null) {
+                        mCallback.onNetworkError();
+                    }
                 }
             }
 
@@ -63,5 +67,19 @@ public class HomePresentImpl implements IHomePresent {
                 LogUtils.e(HomePresentImpl.this,"请求错误！" + t.toString());
             }
         });
+    }
+
+    // 将有用的信息抽取出来进行回调
+    private List<Categories.DataBean.CategoriesBean> handleCategories(Categories categories) {
+        List<Categories.DataBean.CategoriesBean> tmpList = new ArrayList<>();
+        List<Categories.DataBean.CategoriesBean> categoriesBeanList = categories.getData().getCategories();
+        for (Categories.DataBean.CategoriesBean categoriesBean : categoriesBeanList) {
+            Categories.DataBean.CategoriesBean.ThumbBean thumb = categoriesBean.getThumb();
+            String imgPath = thumb.getFileServer()+"/static/"+thumb.getPath();
+            if (imgPath.contains(".picacomic.")) {
+                tmpList.add(categoriesBean);
+            }
+        }
+        return tmpList;
     }
 }

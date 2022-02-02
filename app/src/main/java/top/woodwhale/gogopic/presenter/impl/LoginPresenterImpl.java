@@ -44,9 +44,6 @@ public class LoginPresenterImpl implements ILoginPresenter {
                         mCallback.onAuthenticateLoaded(authSignIn);
                     }
                 } else {
-                    if (mCallback != null) {
-                        mCallback.onNetworkError();
-                    }
                     String errBody = null;
                     try {
                         if (response.errorBody() != null) {
@@ -57,7 +54,11 @@ public class LoginPresenterImpl implements ILoginPresenter {
                     }
                     if (errBody != null && response.code() == 400 && errBody.contains("invalid")) {
                         LogUtils.d(LoginPresenterImpl.this,"账号或者密码错误！");
-                        // TODO:处理账户密码错误
+                        mCallback.onAccountOrPasswordError();
+                        return;
+                    }
+                    if (mCallback != null) {
+                        mCallback.onNetworkError();
                     }
                 }
             }

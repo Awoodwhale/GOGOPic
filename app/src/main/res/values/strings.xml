@@ -7,4 +7,5 @@
     <string name="text_appname">GOGOPic</string>
     <string name="text_home">主页</string>
     <string name="text_mine">我的</string>
+    <string name="text_network_error_tips">网络错误,点击重试!</string>
 </resources>

@@ -4,7 +4,7 @@
         android:icon="@mipmap/home"
         android:title="@string/text_home"/>
 
-    <item android:id="@+id/selected"
+    <item android:id="@+id/mine"
         android:icon="@mipmap/mine"
         android:title="@string/text_mine"/>
 
