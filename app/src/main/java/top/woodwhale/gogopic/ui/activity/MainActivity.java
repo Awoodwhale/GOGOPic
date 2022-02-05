@@ -1,50 +1,37 @@
 package top.woodwhale.gogopic.ui.activity;
 
 import android.annotation.SuppressLint;
-import android.os.Bundle;
-import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import top.woodwhale.gogopic.R;
+import top.woodwhale.gogopic.base.BaseActivity;
 import top.woodwhale.gogopic.base.BaseFragment;
 import top.woodwhale.gogopic.ui.fragment.HomeFragment;
 import top.woodwhale.gogopic.ui.fragment.MineFragment;
 import top.woodwhale.gogopic.utils.LogUtils;
 
 @SuppressLint("NonConstantResourceId")
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
-    private Unbinder mBind;
+    private BaseFragment lastShowFragment = null;
     private HomeFragment mHomeFragment;
     private FragmentManager mFragmentManager;
     private MineFragment mMineFragment;
     @BindView(R.id.main_navigation_bar) public BottomNavigationView mNavigationView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        mBind = ButterKnife.bind(this);
+    protected void initView() {
         initFragments();
-        initEvent();    // 设置监听
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mBind != null) {
-            mBind.unbind();
-        }
+    protected void initPresenter() {
+
     }
 
     // 初始化管理fragment
@@ -56,29 +43,41 @@ public class MainActivity extends AppCompatActivity {
         switchFragment(mHomeFragment);
     }
 
-    private void initEvent() {
-        mNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int itemId = item.getItemId();
-                switch (itemId) {
-                    case R.id.home:
-                        LogUtils.d(MainActivity.this,"前往主页！");
-                        switchFragment(mHomeFragment);
-                        break;
-                    case R.id.mine:
-                        LogUtils.d(MainActivity.this,"前往我的！");
-                        switchFragment(mMineFragment);
-                        break;
-                }
-                return true;
+    @Override
+    protected void initEvent() {
+        mNavigationView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            switch (itemId) {
+                case R.id.home:
+                    LogUtils.d(MainActivity.this,"前往主页！");
+                    switchFragment(mHomeFragment);
+                    break;
+                case R.id.mine:
+                    LogUtils.d(MainActivity.this,"前往我的！");
+                    switchFragment(mMineFragment);
+                    break;
             }
+            return true;
         });
     }
 
+    @Override
+    protected int getLayoutResID() {
+        return R.layout.activity_main;
+    }
+
     private void switchFragment(BaseFragment fragment) {
+        // 使用add和hide的方式来操作
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.main_page_container,fragment);
+        if (!fragment.isAdded()) {
+            fragmentTransaction.add(R.id.main_page_container,fragment);
+        } else {
+            fragmentTransaction.show(fragment);
+        }
+        if (lastShowFragment != null && lastShowFragment != fragment) {
+            fragmentTransaction.hide(lastShowFragment);
+        }
+        lastShowFragment = fragment;
         fragmentTransaction.commit();
     }
 }

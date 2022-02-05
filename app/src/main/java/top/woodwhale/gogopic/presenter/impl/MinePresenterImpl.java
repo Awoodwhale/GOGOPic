@@ -8,14 +8,14 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import top.woodwhale.gogopic.model.domain.API;
 import top.woodwhale.gogopic.model.domain.UserInfo;
-import top.woodwhale.gogopic.presenter.IMinePresent;
+import top.woodwhale.gogopic.presenter.IMinePresenter;
 import top.woodwhale.gogopic.utils.HeaderUtils;
 import top.woodwhale.gogopic.utils.LogUtils;
 import top.woodwhale.gogopic.utils.RetrofitManager;
 import top.woodwhale.gogopic.utils.UrlUtils;
 import top.woodwhale.gogopic.view.IMineCallback;
 
-public class MinePresentImpl implements IMinePresent {
+public class MinePresenterImpl implements IMinePresenter {
     private IMineCallback mCallback;
 
     @Override
@@ -41,7 +41,7 @@ public class MinePresentImpl implements IMinePresent {
         task.enqueue(new Callback<UserInfo>() {
             @Override
             public void onResponse(@NonNull Call<UserInfo> call, @NonNull Response<UserInfo> response) {
-                LogUtils.d(MinePresentImpl.this,"mine code --> " + response.code());
+                LogUtils.d(MinePresenterImpl.this,"mine code --> " + response.code());
                 if (response.code() == 200 && mCallback != null) {
                     UserInfo body = response.body();
                     if (body != null) {
@@ -59,7 +59,7 @@ public class MinePresentImpl implements IMinePresent {
 
             @Override
             public void onFailure(@NonNull Call<UserInfo> call, @NonNull Throwable t) {
-                LogUtils.e(MinePresentImpl.this,"个人中心请求错误 --> "+t.toString());
+                LogUtils.e(MinePresenterImpl.this,"个人中心请求错误 --> "+t.toString());
                 if (mCallback != null) {
                     mCallback.onNetworkError();
                 }

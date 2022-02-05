@@ -32,20 +32,13 @@ public abstract class BaseFragment extends Fragment {
         // 为啥要在这里绑定container？因为如果ButterKnife绑定早了，就会缺少显示层
         mBaseContainer = rootView.findViewById(R.id.base_container);
         mBaseContainer.addView(inflater.inflate(getRootViewResId(), container, false));
-        /*
-         1. 初始化视图
-         2. 构建逻辑层
-         3. 加载数据，到逻辑层回调处理
-         */
+
         initBind(rootView);
-        initView(rootView);
         initPresenter();
+        initView(rootView);
         initEvent();
         loadData();
         return rootView;
-    }
-
-    protected void initEvent() {
     }
 
     // 所有的工具初始化绑定
@@ -56,19 +49,10 @@ public abstract class BaseFragment extends Fragment {
         RxTool.init(rootView.getContext());
     }
 
+    protected void initEvent() {}
+
     // 重试方法
-    protected void contentRetry() {
-
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (mBind != null) {
-            mBind.unbind();
-        }
-        release();
-    }
+    protected void contentRetry() {}
 
 
     /**
@@ -80,6 +64,15 @@ public abstract class BaseFragment extends Fragment {
      */
     protected View loadRootView(LayoutInflater inflater, ViewGroup container) {
         return inflater.inflate(R.layout.base_fragment_layout, container, false);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mBind != null) {
+            mBind.unbind();
+        }
+        release();
     }
 
     protected abstract void initView(View rootView);

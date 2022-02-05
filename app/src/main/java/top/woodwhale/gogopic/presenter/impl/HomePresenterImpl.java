@@ -11,14 +11,14 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import top.woodwhale.gogopic.model.domain.API;
 import top.woodwhale.gogopic.model.domain.Categories;
-import top.woodwhale.gogopic.presenter.IHomePresent;
+import top.woodwhale.gogopic.presenter.IHomePresenter;
 import top.woodwhale.gogopic.utils.HeaderUtils;
 import top.woodwhale.gogopic.utils.LogUtils;
 import top.woodwhale.gogopic.utils.RetrofitManager;
 import top.woodwhale.gogopic.utils.UrlUtils;
 import top.woodwhale.gogopic.view.IHomeCallback;
 
-public class HomePresentImpl implements IHomePresent {
+public class HomePresenterImpl implements IHomePresenter {
     private IHomeCallback mCallback;
 
     @Override
@@ -42,7 +42,7 @@ public class HomePresentImpl implements IHomePresent {
         task.enqueue(new Callback<Categories>() {
             @Override
             public void onResponse(@NonNull Call<Categories> call, @NonNull Response<Categories> response) {
-                LogUtils.d(HomePresentImpl.this,UrlUtils.CATEGORIES_URL +" code --> " + response.code());
+                LogUtils.d(HomePresenterImpl.this,UrlUtils.CATEGORIES_URL +" code --> " + response.code());
                 if (response.code() == 200 && mCallback != null) {
                     Categories categories = response.body();
                     if (categories == null || categories.getData().getCategories().size() == 0) {
@@ -63,7 +63,7 @@ public class HomePresentImpl implements IHomePresent {
                 if (mCallback != null) {
                     mCallback.onNetworkError();
                 }
-                LogUtils.e(HomePresentImpl.this,"首页请求错误！" + t.toString());
+                LogUtils.e(HomePresenterImpl.this,"首页请求错误！" + t.toString());
             }
         });
     }

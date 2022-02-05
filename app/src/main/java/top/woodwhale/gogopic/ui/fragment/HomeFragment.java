@@ -9,25 +9,22 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.vondear.rxtool.RxImageTool;
-
 import java.util.List;
 
 import butterknife.BindView;
 import top.woodwhale.gogopic.R;
 import top.woodwhale.gogopic.base.BaseFragment;
 import top.woodwhale.gogopic.model.domain.Categories;
-import top.woodwhale.gogopic.presenter.IHomePresent;
-import top.woodwhale.gogopic.presenter.impl.HomePresentImpl;
+import top.woodwhale.gogopic.presenter.IHomePresenter;
 import top.woodwhale.gogopic.ui.adapter.HomeContentAdapter;
-import top.woodwhale.gogopic.utils.LogUtils;
+import top.woodwhale.gogopic.utils.PresenterManager;
 import top.woodwhale.gogopic.view.IHomeCallback;
 
 @SuppressLint("NonConstantResourceId")
 public class HomeFragment extends BaseFragment implements IHomeCallback {
 
     @BindView(R.id.home_content_list) protected RecyclerView mHomeContent;
-    private IHomePresent mHomePresent;
+    private IHomePresenter mHomePresent;
     private HomeContentAdapter mHomeContentAdapter;
 
 
@@ -42,10 +39,10 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
         mHomeContent.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-                outRect.top = RxImageTool.px2dp(5);
-                outRect.bottom = RxImageTool.px2dp(5);
-                outRect.left= RxImageTool.px2dp(5);
-                outRect.right = RxImageTool.px2dp(5);
+                outRect.top = 5;
+                outRect.bottom = 5;
+                outRect.left= 5;
+                outRect.right = 5;
             }
         });
         // 创建适配器
@@ -56,7 +53,7 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
 
     @Override
     protected void initPresenter() {
-        mHomePresent = new HomePresentImpl();
+        mHomePresent = PresenterManager.getInstance().getHomePresenter();
         mHomePresent.registerViewCallback(this);
     }
 
@@ -83,7 +80,6 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
     // 重试就是重新加载
     @Override
     protected void contentRetry() {
-        LogUtils.d(this,"retry home");
         loadData();
     }
 

@@ -2,27 +2,26 @@ package top.woodwhale.gogopic.ui.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
 import com.bumptech.glide.Glide;
+import com.vondear.rxtool.view.RxToast;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import top.woodwhale.gogopic.R;
 import top.woodwhale.gogopic.base.BaseFragment;
 import top.woodwhale.gogopic.model.domain.UserInfo;
-import top.woodwhale.gogopic.presenter.IMinePresent;
-import top.woodwhale.gogopic.presenter.impl.MinePresentImpl;
+import top.woodwhale.gogopic.presenter.IMinePresenter;
 import top.woodwhale.gogopic.ui.activity.LoginActivity;
 import top.woodwhale.gogopic.utils.LogUtils;
+import top.woodwhale.gogopic.utils.PresenterManager;
 import top.woodwhale.gogopic.view.IMineCallback;
 
 @SuppressLint("NonConstantResourceId")
@@ -34,7 +33,7 @@ public class MineFragment extends BaseFragment implements IMineCallback {
     @BindView(R.id.tv_mine_username) TextView mUserNameTv;
     @BindView(R.id.iv_mine_head_photo) ImageView mHeadPhotoIv;
     @BindView(R.id.tv_search_title) TextView mSearchTitleTv;
-    private IMinePresent mMinePresent;
+    private IMinePresenter mMinePresent;
 
     @OnClick({R.id.tv_mine_exit})
     protected void queryPress(View v) {
@@ -53,24 +52,14 @@ public class MineFragment extends BaseFragment implements IMineCallback {
         AlertDialog.Builder alertdialogBuilder = new AlertDialog.Builder(requireContext());
         alertdialogBuilder.setIcon(R.mipmap.exit_pic);
         alertdialogBuilder.setTitle("退出登录");
-        alertdialogBuilder.setMessage("您确认要退出登录嘛？");
-        alertdialogBuilder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                chooseExit();
-            }
-        });
-        alertdialogBuilder.setNeutralButton("取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(MineFragment.this.requireActivity(), "再看看呗？", Toast.LENGTH_SHORT).show();
-            }
-        });
+        alertdialogBuilder.setMessage("您确认要退出登录嘛？登录记录会被抹除噢！");
+        alertdialogBuilder.setPositiveButton("确定", (dialog, which) -> chooseExit());
+        alertdialogBuilder.setNeutralButton("取消", null);
         alertdialogBuilder.show();
     }
 
     private void chooseExit() {
-        Toast.makeText(this.requireActivity(), "欢迎下次再来~", Toast.LENGTH_SHORT).show();
+        RxToast.info("下次得登录了哦~");
         SharedPreferences.Editor edit = requireActivity()
                 .getSharedPreferences("GOGOPicLogin", Context.MODE_PRIVATE)
                 .edit();
@@ -108,13 +97,14 @@ public class MineFragment extends BaseFragment implements IMineCallback {
         Glide.with(requireContext())
                 .load(headImgPath)
                 .thumbnail(0.5f)
+                .circleCrop()
                 .into(mHeadPhotoIv);
 
     }
 
     @Override
     protected void initPresenter() {
-        mMinePresent = new MinePresentImpl();
+        mMinePresent = PresenterManager.getInstance().getMinePresenter();
         mMinePresent.registerViewCallback(this);
     }
 
