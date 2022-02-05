@@ -89,29 +89,14 @@ public class MineFragment extends BaseFragment implements IMineCallback {
     @Override
     protected void initView(View rootView) {
         mSearchTitleTv.setText("我的");
-        setupState(State.SUCCESS);
     }
 
-    @Override
-    public void onNetworkError() {
-        setupState(State.ERROR);
-    }
-
-    @Override
-    public void onLoading() {
-        setupState(State.LOADING);
-    }
-
-    @Override
-    public void onEmpty() {
-        setupState(State.EMPTY);
-    }
 
     @SuppressLint("SetTextI18n")
     @Override
     public void onUserInfoLoaded(UserInfo userInfo) {
         // 个人信息回调到这里
-        setupState(State.SUCCESS);
+        showSuccess();
         UserInfo.DataBean.UserBean user = userInfo.getData().getUser();
         // 并不需要适配器，直接写
         mUserNameTv.setText(user.getName());
@@ -147,9 +132,23 @@ public class MineFragment extends BaseFragment implements IMineCallback {
         }
     }
 
-    // 如果网络错误，点击重试，那么重新加载数据
     @Override
-    protected void onNetworkRetryClick() {
+    public void onNetworkError() {
+        showError();
+    }
+
+    @Override
+    public void onLoading() {
+        showLoading();
+    }
+
+    @Override
+    public void onEmpty() {
+        showEmpty();
+    }
+
+    @Override
+    protected void contentRetry() {
         loadData();
     }
 }

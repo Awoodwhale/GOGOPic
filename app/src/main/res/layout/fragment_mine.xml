@@ -8,6 +8,8 @@
     <include layout="@layout/include_home_top_title"/>
 
     <LinearLayout
+        android:background="@drawable/mine_background_color"
+
         android:layout_weight="2"
         android:layout_width="match_parent"
         android:layout_height="160dp"
@@ -19,14 +21,12 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center_horizontal"
-            android:src="@mipmap/wifi"
             />
         <TextView
             android:id="@+id/tv_mine_username"
             android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="woodwhale"
             android:textSize="18sp"
             android:gravity="center_horizontal"/>
         <TextView
@@ -34,7 +34,6 @@
             android:layout_marginTop="4dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="LV:5 萌新"
             android:gravity="center_horizontal"
             android:textSize="14sp"/>
 
@@ -43,15 +42,14 @@
             android:textStyle="italic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="这是测试签名"
             android:textSize="16sp"
             android:gravity="center_horizontal"
             android:layout_marginTop="4dp"/>
-
     </LinearLayout>
 
     <LinearLayout
-        android:layout_weight="4"
+        android:gravity="center_vertical"
+        android:layout_weight="8"
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -63,7 +61,7 @@
             android:layout_height="40dp"
             android:text="应用设置"
             android:textSize="20sp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:paddingLeft="20dp"/>
 
         <TextView
@@ -72,13 +70,13 @@
             android:layout_height="40dp"
             android:text="我的收藏"
             android:textSize="20sp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:paddingLeft="20dp"/>
 
         <TextView
             android:gravity="center_vertical"
             android:paddingLeft="20dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:textSize="20sp"
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -90,7 +88,7 @@
             android:layout_height="40dp"
             android:text="浏览历史"
             android:textSize="20sp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:paddingLeft="20dp"/>
 
         <TextView
@@ -99,7 +97,7 @@
             android:layout_height="40dp"
             android:text="修改密码"
             android:textSize="20sp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:paddingLeft="20dp"/>
 
         <TextView
@@ -110,7 +108,7 @@
             android:layout_height="40dp"
             android:text="退出登录"
             android:textSize="20sp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:paddingLeft="20dp"/>
 
         <TextView
@@ -119,7 +117,7 @@
             android:layout_height="40dp"
             android:text="关于应用"
             android:textSize="20sp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:paddingLeft="20dp"/>
 
     </LinearLayout>

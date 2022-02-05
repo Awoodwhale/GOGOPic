@@ -6,11 +6,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+
+import java.nio.charset.StandardCharsets;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,7 +43,6 @@ public class LoginActivity extends Activity implements ILoginCallback {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mBind = ButterKnife.bind(this);
-
         checkIsLoggedIn();
         initPresenter();
         initView();
@@ -52,6 +54,8 @@ public class LoginActivity extends Activity implements ILoginCallback {
         mPassword = settingInfo.getString(Constants.PASSWORD_KEY,null);
         if (mAccount != null && mPassword != null) {
             mIsLoggedIn = true;
+            mAccount = new String(Base64.decode(mAccount, Base64.DEFAULT));
+            mPassword = new String(Base64.decode(mPassword, Base64.DEFAULT));
             mAccountEt.setEnabled(false);
             mPasswordEt.setEnabled(false);
             mLoginBtn.setEnabled(false);
@@ -61,8 +65,10 @@ public class LoginActivity extends Activity implements ILoginCallback {
     private void write2SharedPreferences(String account, String password) {
         SharedPreferences settingInfo = this.getSharedPreferences("GOGOPicLogin", MODE_PRIVATE);
         SharedPreferences.Editor edit = settingInfo.edit();
-        edit.putString(Constants.USERNAME_KEY,account);
-        edit.putString(Constants.PASSWORD_KEY,password);
+        edit.putString(Constants.USERNAME_KEY,
+                Base64.encodeToString(account.getBytes(StandardCharsets.UTF_8), Base64.DEFAULT));
+        edit.putString(Constants.PASSWORD_KEY,
+                Base64.encodeToString(password.getBytes(StandardCharsets.UTF_8), Base64.DEFAULT));
         edit.apply();
     }
 
@@ -100,6 +106,7 @@ public class LoginActivity extends Activity implements ILoginCallback {
     }
 
     private void loadData() {
+
         // 登录
         if (mLoginPresenter != null) {
             mLoginPresenter.getAuthenticate(mAccount,mPassword);

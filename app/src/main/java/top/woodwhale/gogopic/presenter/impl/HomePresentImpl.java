@@ -36,7 +36,6 @@ public class HomePresentImpl implements IHomePresent {
         if (mCallback != null) {
             mCallback.onLoading();
         }
-
         Retrofit retrofit = RetrofitManager.getInstance().getRetrofit();
         API api = retrofit.create(API.class);
         Call<Categories> task = api.getCategories(HeaderUtils.getHeaderMap(UrlUtils.CATEGORIES_URL,false));
@@ -46,7 +45,7 @@ public class HomePresentImpl implements IHomePresent {
                 LogUtils.d(HomePresentImpl.this,UrlUtils.CATEGORIES_URL +" code --> " + response.code());
                 if (response.code() == 200 && mCallback != null) {
                     Categories categories = response.body();
-                    if (categories == null) {
+                    if (categories == null || categories.getData().getCategories().size() == 0) {
                         mCallback.onEmpty();
                     } else {
                         // 成功就回调处理
@@ -64,7 +63,7 @@ public class HomePresentImpl implements IHomePresent {
                 if (mCallback != null) {
                     mCallback.onNetworkError();
                 }
-                LogUtils.e(HomePresentImpl.this,"请求错误！" + t.toString());
+                LogUtils.e(HomePresentImpl.this,"首页请求错误！" + t.toString());
             }
         });
     }
