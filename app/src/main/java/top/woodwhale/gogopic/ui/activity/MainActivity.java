@@ -6,6 +6,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.hjq.bar.OnTitleBarListener;
+import com.hjq.bar.TitleBar;
 
 import butterknife.BindView;
 import top.woodwhale.gogopic.R;
@@ -22,7 +24,8 @@ public class MainActivity extends BaseActivity {
     private HomeFragment mHomeFragment;
     private FragmentManager mFragmentManager;
     private MineFragment mMineFragment;
-    @BindView(R.id.main_navigation_bar) public BottomNavigationView mNavigationView;
+    @BindView(R.id.main_navigation_bar) BottomNavigationView mNavigationView;
+    @BindView(R.id.tb_home_toolbar) TitleBar mTitleBar;
 
     @Override
     protected void initView() {
@@ -31,7 +34,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initPresenter() {
-
+        // TODO:处理搜索和ban书的逻辑层
     }
 
     // 初始化管理fragment
@@ -45,19 +48,34 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initEvent() {
+        // 不同fragment切换
         mNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             switch (itemId) {
                 case R.id.home:
                     LogUtils.d(MainActivity.this,"前往主页！");
                     switchFragment(mHomeFragment);
+                    mTitleBar.setTitle("主页");
                     break;
                 case R.id.mine:
                     LogUtils.d(MainActivity.this,"前往我的！");
                     switchFragment(mMineFragment);
+                    mTitleBar.setTitle("我的");
                     break;
             }
             return true;
+        });
+        // 设置监听
+        mTitleBar.setOnTitleBarListener(new OnTitleBarListener() {
+            @Override
+            public void onLeftClick(TitleBar titleBar) {
+                // TODO：设置ban书事件
+            }
+
+            @Override
+            public void onRightClick(TitleBar titleBar) {
+                // TODO：设置搜索事件
+            }
         });
     }
 

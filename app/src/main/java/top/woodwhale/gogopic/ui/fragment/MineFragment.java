@@ -22,6 +22,7 @@ import top.woodwhale.gogopic.presenter.IMinePresenter;
 import top.woodwhale.gogopic.ui.activity.LoginActivity;
 import top.woodwhale.gogopic.utils.LogUtils;
 import top.woodwhale.gogopic.utils.PresenterManager;
+import top.woodwhale.gogopic.utils.UrlUtils;
 import top.woodwhale.gogopic.view.IMineCallback;
 
 @SuppressLint("NonConstantResourceId")
@@ -32,14 +33,16 @@ public class MineFragment extends BaseFragment implements IMineCallback {
     @BindView(R.id.tv_mine_level) TextView mLevelTv;
     @BindView(R.id.tv_mine_username) TextView mUserNameTv;
     @BindView(R.id.iv_mine_head_photo) ImageView mHeadPhotoIv;
-    @BindView(R.id.tv_search_title) TextView mSearchTitleTv;
     private IMinePresenter mMinePresent;
 
-    @OnClick({R.id.tv_mine_exit})
+    @OnClick({R.id.tv_mine_exit,R.id.iv_mine_head_photo})
     protected void queryPress(View v) {
         switch (v.getId()) {
             case R.id.tv_mine_exit:
                 handleExit();
+                break;
+            case R.id.iv_mine_head_photo:
+                handleCheckIn();
                 break;
         }
     }
@@ -56,6 +59,10 @@ public class MineFragment extends BaseFragment implements IMineCallback {
         alertdialogBuilder.setPositiveButton("确定", (dialog, which) -> chooseExit());
         alertdialogBuilder.setNeutralButton("取消", null);
         alertdialogBuilder.show();
+    }
+
+    private void handleCheckIn() {
+
     }
 
     private void chooseExit() {
@@ -77,7 +84,7 @@ public class MineFragment extends BaseFragment implements IMineCallback {
 
     @Override
     protected void initView(View rootView) {
-        mSearchTitleTv.setText("我的");
+
     }
 
 
@@ -91,9 +98,9 @@ public class MineFragment extends BaseFragment implements IMineCallback {
         mUserNameTv.setText(user.getName());
         mSignTv.setText(user.getSlogan());
         mLevelTv.setText("LV:"+user.getLevel()+" "+user.getTitle());
-        String headImgPath = user.getAvatar().getFileServer()
-                +"/static/"+
-                user.getAvatar().getPath();
+        String headImgPath = UrlUtils.getAddStaticPicPathUrl(
+                user.getAvatar().getFileServer(),
+                user.getAvatar().getPath());
         Glide.with(requireContext())
                 .load(headImgPath)
                 .thumbnail(0.5f)

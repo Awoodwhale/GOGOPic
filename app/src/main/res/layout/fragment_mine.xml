@@ -5,8 +5,6 @@
     android:background="@color/white"
     android:layout_height="match_parent">
 
-    <include layout="@layout/include_home_top_title"/>
-
     <LinearLayout
         android:background="@drawable/mine_background_color"
 

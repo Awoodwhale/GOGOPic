@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/ll_category_container"
+    android:layout_height="match_parent">
+
+    <com.hjq.bar.TitleBar
+        android:id="@+id/tb_category_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/pink_light"
+        app:childPaddingVertical="10dp"
+        app:titleSize="23dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="end|center_vertical">
+
+            <ImageView
+                android:background="?android:attr/selectableItemBackground"
+                android:id="@+id/iv_category_sort"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="5dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="15dp"
+                android:scaleType="centerInside"
+                android:src="@mipmap/sort" />
+            <ImageView
+                android:background="?android:attr/selectableItemBackground"
+                android:id="@+id/iv_category_search"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:padding="5dp"
+                android:layout_marginEnd="15dp"
+                android:scaleType="centerInside"
+                android:src="@mipmap/search" />
+        </LinearLayout>
+
+    </com.hjq.bar.TitleBar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="#eeeeee"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/sp_category_sort_spinner"
+            android:layout_width="105dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:dropDownWidth="120dp"
+            android:entries="@array/sort"
+            android:spinnerMode="dropdown"
+            android:theme="@style/myDropTheme" />
+
+        <TextView
+            android:id="@+id/tv_category_now_page"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:background="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="@string/text_init_page"
+            android:textSize="14sp"
+            tools:ignore="RelativeOverlap" />
+
+        <TextView
+            android:id="@+id/tv_category_page_select"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center"
+            android:background="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="@string/text_select_page"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:layout_width="match_parent"
+        android:id="@+id/srl_comics_home_pager_refresh"
+        android:layout_height="wrap_content">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:id="@+id/rv_category_content_list"
+            android:layout_height="wrap_content">
+        </androidx.recyclerview.widget.RecyclerView>
+        <com.scwang.smart.refresh.footer.ClassicsFooter
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"/>
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
+
+</LinearLayout>

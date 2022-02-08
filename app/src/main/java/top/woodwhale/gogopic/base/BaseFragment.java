@@ -29,7 +29,6 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = loadRootView(inflater, container);
-        // 为啥要在这里绑定container？因为如果ButterKnife绑定早了，就会缺少显示层
         mBaseContainer = rootView.findViewById(R.id.base_container);
         mBaseContainer.addView(inflater.inflate(getRootViewResId(), container, false));
 
@@ -45,6 +44,8 @@ public abstract class BaseFragment extends Fragment {
     private void initBind(View rootView) {
         mBind = ButterKnife.bind(this,rootView);
         mStateView = StateView.inject(mBaseContainer);
+        mStateView.setEmptyResource(R.layout.fragment_empty);
+        mStateView.setRetryResource(R.layout.fragment_error);
         mStateView.setOnRetryClickListener(this::contentRetry);
         RxTool.init(rootView.getContext());
     }

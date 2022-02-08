@@ -9,7 +9,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.HeaderMap;
 import retrofit2.http.POST;
-import retrofit2.http.QueryMap;
+import retrofit2.http.Url;
 import top.woodwhale.gogopic.utils.UrlUtils;
 
 public interface API {
@@ -19,9 +19,12 @@ public interface API {
     @GET(UrlUtils.CATEGORIES_URL)
     Call<Categories> getCategories(@HeaderMap Map<String, String> map);
 
-    @GET(UrlUtils.COMICS_URL)
-    Call<ResponseBody> getComics(@HeaderMap Map<String, String> headerMap, @QueryMap Map<String,String> queryMap);
+    @GET
+    Call<ComicsCategory> getComics(@HeaderMap Map<String, String> headerMap, @Url String url);
 
     @GET(UrlUtils.USER_INFO_URL)
     Call<UserInfo> getUserInfo(@HeaderMap Map<String, String> headerMap);
+
+    @POST(UrlUtils.CHECK_IN_URL)
+    Call<ResponseBody> getCheckInInfo(@HeaderMap Map<String, String> headerMap);
 }

@@ -8,4 +8,16 @@
     <string name="text_home">主页</string>
     <string name="text_mine">我的</string>
     <string name="text_network_error_tips">网络错误,点击重试!</string>
+    <string name="electricity">电量</string>
+    <string name="lastEpisode">上一话</string>
+    <string name="menu">菜单</string>
+    <string name="nextEpisode">下一话</string>
+    <string name="pagination">/</string>
+    <string name="directory">目录</string>
+    <string name="download">下载</string>
+    <string name="collect">收藏</string>
+    <string name="favorite">喜欢</string>
+    <string name="netflow">分流</string>
+    <string name="text_select_page">选择页数</string>
+    <string name="text_init_page">已加载:1页</string>
 </resources>

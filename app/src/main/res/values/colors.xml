@@ -11,5 +11,10 @@
     <color name="pink_dark">#e9a7c8</color>
     <color name="blue_sky">#a6c1ee</color>
     <color name="grey">#617D8A</color>
+    <color name="grey_bg">#838383</color>
     <color name="pink_selected">#FB2A4C</color>
+    <color name="orange">#FF9800</color>
+    <color name="black_light">#80000000</color>
+    <color name="red_bg">#d4237a</color>
+    <color name="white_smoke">#F0FFFC</color>
 </resources>

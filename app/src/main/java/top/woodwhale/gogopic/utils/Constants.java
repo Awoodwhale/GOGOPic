@@ -16,4 +16,7 @@ public class Constants {
     public static String SIGNATURE = null;
     // 登录一次后获取的token
     public static String LOGIN_TOKEN = null;
+
+    public static final String CATEGORY_TITLE_KEY = "category_title_key";
+    public static final String CATEGORY_URL_KEY = "category_url_key";
 }

@@ -45,6 +45,7 @@ public class LoginPresenterImpl implements ILoginPresenter {
                     } else {
                         Constants.LOGIN_TOKEN = authSignIn.getData().getToken();
                         mCallback.onAuthenticateLoaded(authSignIn);
+                        // 如果成功登录，就一并处理签到
                     }
                 } else {
                     String errBody = null;

@@ -1,11 +1,11 @@
 package top.woodwhale.gogopic.ui.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,46 +15,76 @@ import butterknife.BindView;
 import top.woodwhale.gogopic.R;
 import top.woodwhale.gogopic.base.BaseFragment;
 import top.woodwhale.gogopic.model.domain.Categories;
+import top.woodwhale.gogopic.presenter.ICategoryPresenter;
 import top.woodwhale.gogopic.presenter.IHomePresenter;
+import top.woodwhale.gogopic.ui.activity.ShowCategoryActivity;
 import top.woodwhale.gogopic.ui.adapter.HomeContentAdapter;
+import top.woodwhale.gogopic.utils.Constants;
+import top.woodwhale.gogopic.utils.LogUtils;
 import top.woodwhale.gogopic.utils.PresenterManager;
+import top.woodwhale.gogopic.utils.UrlUtils;
 import top.woodwhale.gogopic.view.IHomeCallback;
 
 @SuppressLint("NonConstantResourceId")
-public class HomeFragment extends BaseFragment implements IHomeCallback {
+public class HomeFragment extends BaseFragment implements IHomeCallback, HomeContentAdapter.OnListenItemClickListener {
 
     @BindView(R.id.home_content_list) protected RecyclerView mHomeContent;
+
     private IHomePresenter mHomePresent;
     private HomeContentAdapter mHomeContentAdapter;
 
+    @Override
+    protected int getRootViewResId() {
+        return R.layout.fragment_home;
+    }
 
     @Override
     protected void initView(View rootView) {
         // 设置布局管理器
         mHomeContent.setLayoutManager(new GridLayoutManager(getContext(),3));
         // 添加分割线
-        mHomeContent.addItemDecoration(new DividerItemDecoration(requireContext(),DividerItemDecoration.VERTICAL));
-        mHomeContent.addItemDecoration(new DividerItemDecoration(requireContext(),DividerItemDecoration.HORIZONTAL));
         // 设置间距
         mHomeContent.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-                outRect.top = 5;
-                outRect.bottom = 5;
-                outRect.left= 5;
-                outRect.right = 5;
+                outRect.top = 6;
+                outRect.bottom = 6;
+                outRect.left= 6;
+                outRect.right = 6;
             }
         });
-        // 创建适配器
-        mHomeContentAdapter = new HomeContentAdapter();
-        // 设置适配器
-        mHomeContent.setAdapter(mHomeContentAdapter);
+    }
+
+    @Override
+    protected void initEvent() {
+
     }
 
     @Override
     protected void initPresenter() {
+        // 创建逻辑层
         mHomePresent = PresenterManager.getInstance().getHomePresenter();
         mHomePresent.registerViewCallback(this);
+        // 创建适配器逻辑
+        mHomeContentAdapter = new HomeContentAdapter();
+        // 设置适配器逻辑
+        mHomeContent.setAdapter(mHomeContentAdapter);
+        mHomeContentAdapter.registerOnListenItemClickListener(this);
+    }
+
+    @Override
+    public void onItemClick(Categories.DataBean.CategoriesBean data) {
+        LogUtils.d(this,"onItemClick...");
+        ICategoryPresenter categoryPresenter = PresenterManager.getInstance().getCategoryPresenter();
+        String title = data.getTitle().trim();
+        String url = UrlUtils.getComicsCategoryInfoUrl("1",title);
+        if (url != null) {
+            categoryPresenter.getCategoryComics(url);
+            Intent intent = new Intent(requireContext(),ShowCategoryActivity.class);
+            intent.putExtra(Constants.CATEGORY_TITLE_KEY,title);
+            intent.putExtra(Constants.CATEGORY_URL_KEY,url);
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -62,11 +92,6 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
         if (mHomePresent != null) {
             mHomePresent.getCategories();
         }
-    }
-
-    @Override
-    protected int getRootViewResId() {
-        return R.layout.fragment_home;
     }
 
     @Override
@@ -89,6 +114,9 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
         if (mHomePresent != null) {
             mHomePresent.unregisterViewCallback(this);
         }
+        if (mHomeContentAdapter != null) {
+            mHomeContentAdapter.unregisterOnListenItemClickListener(this);
+        }
     }
 
     @Override
@@ -105,4 +133,6 @@ public class HomeFragment extends BaseFragment implements IHomeCallback {
     public void onEmpty() {
         showEmpty();
     }
+
+
 }

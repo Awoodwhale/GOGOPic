@@ -1,10 +1,12 @@
 package top.woodwhale.gogopic.ui.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -61,6 +63,10 @@ public class LoginActivity extends BaseActivity implements ILoginCallback {
             if (!TextUtils.isEmpty(mAccountEt.getText()) && !TextUtils.isEmpty(mPasswordEt.getText())) {
                 mAccount = String.valueOf(mAccountEt.getText());
                 mPassword = String.valueOf(mPasswordEt.getText());
+                InputMethodManager imm = ( InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm.isActive()) {
+                    imm.hideSoftInputFromWindow(mPasswordEt.getWindowToken(), 0 );
+                }
                 loadData();
             } else {
                 RxToast.warning("用户名和密码不能为空噢!");
@@ -77,7 +83,6 @@ public class LoginActivity extends BaseActivity implements ILoginCallback {
 
     @Override
     protected void contentRetry() {
-        RxToast.info("正在尝试重新加载！");
         loadData();
     }
 
@@ -118,7 +123,7 @@ public class LoginActivity extends BaseActivity implements ILoginCallback {
      */
     @Override
     public void onAccountOrPasswordError() {
-       RxToast.error("账户或密码错误！");
+        RxToast.error("账户或密码错误！");
         mAccountEt.setText("");
         mPasswordEt.setText("");
     }

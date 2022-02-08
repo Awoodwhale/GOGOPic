@@ -11,8 +11,7 @@
         android:layout_gravity="center"
         android:layout_width="85dp"
         android:layout_height="85dp"
-        android:id="@+id/iv_category_cover"
-        android:src="@mipmap/ic_launcher"/>
+        android:id="@+id/iv_category_cover" />
 
     <TextView
         android:gravity="center"
@@ -22,7 +21,6 @@
         android:textSize="16sp"
         android:layout_marginTop="5dp"
         android:textStyle="bold"
-        android:layout_marginBottom="5dp"
-        android:text="那年我们"/>
+        android:layout_marginBottom="5dp" />
 
 </LinearLayout>

@@ -8,6 +8,12 @@
         <!--可以修改背景颜色和水波纹的颜色：-->
 <!--        <item name="colorControlHighlight">@color/pink_dark</item>-->
 <!--        <item name="colorButtonNormal">@color/material_blue_grey_800</item>-->
+    </style>
 
+    <style name="myDropTheme" parent="Widget.AppCompat.DropDownItem.Spinner">
+        <!-- 分隔线颜色 -->
+<!--        <item name="android:divider">#E5E5E5</item>-->
+<!--        <item name="android:dividerHeight">1dp</item>-->
+        <item name="android:textSize">14sp</item>
     </style>
 </resources>

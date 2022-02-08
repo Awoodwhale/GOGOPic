@@ -6,15 +6,35 @@
     android:layout_height="match_parent"
     tools:context=".ui.activity.MainActivity">
 
+    <com.hjq.bar.TitleBar
+        android:id="@+id/tb_home_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/pink_light"
+        app:childPaddingVertical="10dp"
+        app:leftIcon="@mipmap/fai"
+        app:leftIconHeight="25dp"
+        app:leftIconWidth="25dp"
+        app:lineVisible="false"
+        app:rightIcon="@mipmap/search"
+        app:rightIconHeight="25dp"
+        app:rightIconWidth="25dp"
+        app:title="主页"
+        app:titleGravity="center"
+        app:titleSize="23sp" />
+
+
     <FrameLayout
         android:id="@+id/main_page_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tb_home_toolbar"
+        android:layout_marginBottom="55dp" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/main_navigation_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
         android:layout_alignParentBottom="true"
         android:background="@color/white"
         app:itemIconTint="@drawable/navigation_bar_color"
