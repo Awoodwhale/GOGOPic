@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +23,7 @@ import top.woodwhale.gogopic.presenter.ILoginPresenter;
 import top.woodwhale.gogopic.utils.Constants;
 import top.woodwhale.gogopic.utils.LogUtils;
 import top.woodwhale.gogopic.utils.PresenterManager;
+import top.woodwhale.gogopic.utils.SharedPreferencesUtils;
 import top.woodwhale.gogopic.view.ILoginCallback;
 
 @SuppressLint("NonConstantResourceId")
@@ -110,11 +112,12 @@ public class LoginActivity extends BaseActivity implements ILoginCallback {
             }
             LogUtils.d(this,"content --> "+Constants.LOGIN_TOKEN);
             RxToast.success("登录成功!");
-            showSuccess();
+            findViewById(R.id.rl_login_container).setVisibility(View.GONE);
             // 登录成功就将登录页面跳转到主页
             Intent intent = new Intent(this,MainActivity.class);
             this.startActivity(intent);
             this.finish();
+            showSuccess();
         }
     }
 
@@ -135,7 +138,8 @@ public class LoginActivity extends BaseActivity implements ILoginCallback {
     }
 
     private void checkIsLoggedIn() {
-        SharedPreferences settingInfo = this.getSharedPreferences("GOGOPicLogin", MODE_PRIVATE);
+        SharedPreferences settingInfo = this.
+                getSharedPreferences(SharedPreferencesUtils.LOGIN_PREFERENCE_NAME, MODE_PRIVATE);
         mAccount = settingInfo.getString(Constants.USERNAME_KEY,null);
         mPassword = settingInfo.getString(Constants.PASSWORD_KEY,null);
         if (mAccount != null && mPassword != null) {
@@ -149,7 +153,8 @@ public class LoginActivity extends BaseActivity implements ILoginCallback {
     }
 
     private void write2SharedPreferences(String account, String password) {
-        SharedPreferences settingInfo = this.getSharedPreferences("GOGOPicLogin", MODE_PRIVATE);
+        SharedPreferences settingInfo = this.
+                getSharedPreferences(SharedPreferencesUtils.LOGIN_PREFERENCE_NAME, MODE_PRIVATE);
         SharedPreferences.Editor edit = settingInfo.edit();
         edit.putString(Constants.USERNAME_KEY,
                 Base64.encodeToString(account.getBytes(StandardCharsets.UTF_8), Base64.DEFAULT));

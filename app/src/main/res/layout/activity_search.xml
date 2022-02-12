@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_height="?android:actionBarSize">
+        <androidx.appcompat.widget.SearchView
+            android:layout_width="0dp"
+            android:id="@+id/sv_search_view"
+            android:layout_height="wrap_content"
+            app:iconifiedByDefault="false"
+            android:layout_weight="6"
+            app:defaultQueryHint="你想搜什么?"/>
+        <TextView
+            android:id="@+id/tv_search_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="取消"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:gravity="bottom"
+            android:textAlignment="center"
+            android:background="@drawable/shape_search_bg"
+            android:layout_gravity="center"
+            android:textSize="20sp"
+            tools:ignore="RtlCompat" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="大家都在搜:"
+        android:textSize="16sp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="5dp"/>
+    <co.lujun.androidtagview.TagContainerLayout
+        android:id="@+id/tcl_people_search"
+        android:layout_width="match_parent"
+        android:padding="10dp"
+        app:tag_clickable="true"
+        app:horizontal_interval="10dp"
+        app:vertical_interval="10dp"
+        app:tag_theme="random"
+        app:container_background_color="#fafafa"
+        app:container_border_color="#fafafafa"
+        android:layout_height="wrap_content">
+    </co.lujun.androidtagview.TagContainerLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="历史搜索:"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_clear_history_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:text="清空历史"/>
+
+    </RelativeLayout>
+
+    <co.lujun.androidtagview.TagContainerLayout
+        android:layout_width="match_parent"
+        android:id="@+id/tcl_history_search"
+        android:padding="10dp"
+        app:tag_clickable="true"
+        app:horizontal_interval="10dp"
+        app:vertical_interval="10dp"
+        app:tag_theme="pure_cyan"
+        app:container_background_color="#fafafa"
+        app:container_border_color="#fafafafa"
+        android:layout_height="wrap_content">
+    </co.lujun.androidtagview.TagContainerLayout>
+
+
+
+</LinearLayout>

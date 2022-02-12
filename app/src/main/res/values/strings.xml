@@ -19,5 +19,4 @@
     <string name="favorite">喜欢</string>
     <string name="netflow">分流</string>
     <string name="text_select_page">选择页数</string>
-    <string name="text_init_page">已加载:1页</string>
 </resources>

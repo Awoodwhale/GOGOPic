@@ -67,7 +67,6 @@
             android:layout_centerInParent="true"
             android:background="?android:attr/selectableItemBackground"
             android:gravity="center"
-            android:text="@string/text_init_page"
             android:textSize="14sp"
             tools:ignore="RelativeOverlap" />
 

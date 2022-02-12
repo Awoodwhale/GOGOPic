@@ -9,13 +9,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import top.woodwhale.gogopic.R;
 import top.woodwhale.gogopic.base.BaseFragment;
 import top.woodwhale.gogopic.model.domain.Categories;
-import top.woodwhale.gogopic.presenter.ICategoryPresenter;
+import top.woodwhale.gogopic.presenter.IComicsCategoryPresenter;
 import top.woodwhale.gogopic.presenter.IHomePresenter;
 import top.woodwhale.gogopic.ui.activity.ShowCategoryActivity;
 import top.woodwhale.gogopic.ui.adapter.HomeContentAdapter;
@@ -32,6 +33,7 @@ public class HomeFragment extends BaseFragment implements IHomeCallback, HomeCon
 
     private IHomePresenter mHomePresent;
     private HomeContentAdapter mHomeContentAdapter;
+    private ArrayList<String> mTitlesList = new ArrayList<>();
 
     @Override
     protected int getRootViewResId() {
@@ -75,14 +77,13 @@ public class HomeFragment extends BaseFragment implements IHomeCallback, HomeCon
     @Override
     public void onItemClick(Categories.DataBean.CategoriesBean data) {
         LogUtils.d(this,"onItemClick...");
-        ICategoryPresenter categoryPresenter = PresenterManager.getInstance().getCategoryPresenter();
+        IComicsCategoryPresenter categoryPresenter = PresenterManager.getInstance().getCategoryPresenter();
         String title = data.getTitle().trim();
         String url = UrlUtils.getComicsCategoryInfoUrl("1",title);
         if (url != null) {
-            categoryPresenter.getCategoryComics(url);
+            categoryPresenter.getCategoryComics(title,"ua",1);
             Intent intent = new Intent(requireContext(),ShowCategoryActivity.class);
             intent.putExtra(Constants.CATEGORY_TITLE_KEY,title);
-            intent.putExtra(Constants.CATEGORY_URL_KEY,url);
             startActivity(intent);
         }
     }
@@ -97,8 +98,12 @@ public class HomeFragment extends BaseFragment implements IHomeCallback, HomeCon
     @Override
     public void onCategoriesLoaded(List<Categories.DataBean.CategoriesBean> categories) {
         if (mHomeContentAdapter != null) {
-            showSuccess();
             mHomeContentAdapter.setData(categories);
+            for (Categories.DataBean.CategoriesBean category : categories) {
+                mTitlesList.add(category.getTitle());
+            }
+            Constants.CATEGORISE_LISTS = mTitlesList;
+            showSuccess();
         }
     }
 

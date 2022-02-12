@@ -5,25 +5,15 @@ import java.net.URLEncoder;
 
 public class UrlUtils {
     // 各个部分的urlPart
-    public static final String CHECK_IN_URL = "users/punch-in";
     public static final String LOGIN_URL = "auth/sign-in";
     public static final String CATEGORIES_URL = "categories";
     public static final String COMICS_URL = "comics";
     public static final String KEYWORDS_URL = "keywords";
     public static final String USER_INFO_URL = "users/profile";
-    public static String BOOK_INFO_URL(String bookID) {
+    public static String getComicsInfoUrl(String bookID) {
         return "comics/"+bookID;
     }
-    public static String BOOK_PAGE_INFO_URL(String bookID,String page) {
-        return "comics/"+bookID+"/eps?page="+page;
-    }
-    public static String BOOK_CONTENT_INFO_URL(String bookID, String espID, String page) {
-        return "comics/"+bookID+"/order/"+espID+"/pages?page="+page;
-    }
-    public static String RECOMMEND_INFO_URL(String bookID) {
-        return "comics/"+bookID+"/recommendation";
-    }
-    public static String SEARCH_URL(String page) {
+    public static String getSearchUrl(String page) {
         return "comics/advanced-search?page="+page;
     }
     public static String getComicsCategoryInfoUrl(String page, String title, String sort) {
@@ -44,9 +34,8 @@ public class UrlUtils {
     public static String getAddStaticPicPathUrl(String fileServer, String path) {
         return fileServer + "/static/" + path;
     }
-
     public static String getComicsSortWay(int pos) {
-        String sortWay = null;
+        String sortWay;
         if (pos == 0) {
             sortWay = "ua";
         } else if (pos == 1) {
@@ -59,5 +48,20 @@ public class UrlUtils {
             sortWay = "da";
         }
         return sortWay;
+    }
+    public static String getFavoriteComicsInfoUrl(int page) {
+        return "users/favourite?s=dd&page="+page;
+    }
+
+    public static String getComicsLikeUrl(String bookID) {
+        return "comics/"+bookID+"/like";
+    }
+
+    public static String getComicsFavoriteUrl(String bookID) {
+        return "comics/"+bookID+"/favourite";
+    }
+
+    public static String getEpsChapterUrl(String bookID, int page) {
+        return "comics/"+bookID+"/eps?page="+page;
     }
 }

@@ -20,34 +20,33 @@ import butterknife.ButterKnife;
 import top.woodwhale.gogopic.R;
 import top.woodwhale.gogopic.model.domain.ComicsCategory;
 
-public class ComicsCategoryContentAdapter extends RecyclerView.Adapter<ComicsCategoryContentAdapter.InnerHolder> {
-
+public class HistoryAndFavoriteContentAdapter extends RecyclerView.Adapter<HistoryAndFavoriteContentAdapter.InnerHolder> {
     public interface OnListenComicsItemClickListener {
         void onItemClick(ComicsCategory.DataBean.ComicsBean.DocsBean data);
     }
 
     private OnListenComicsItemClickListener mListenComicsItemClickListener = null;
 
-    public void registerOnListenComicsItemClickListener(OnListenComicsItemClickListener listener) {
+    public void registerOnListenComicsItemClickListener(HistoryAndFavoriteContentAdapter.OnListenComicsItemClickListener listener) {
         this.mListenComicsItemClickListener = listener;
     }
 
-    public void unregisterOnListenComicsItemClickListener(OnListenComicsItemClickListener listener) {
+    public void unregisterOnListenComicsItemClickListener(HistoryAndFavoriteContentAdapter.OnListenComicsItemClickListener listener) {
         this.mListenComicsItemClickListener = null;
     }
 
-    private final List<ComicsCategory.DataBean.ComicsBean.DocsBean> mDocsList = new ArrayList<>();
+    private final List<ComicsCategory.DataBean.ComicsBean.DocsBean> mData = new ArrayList<>();
 
     @NonNull
     @Override
     public InnerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_comics_category_content, parent, false);
-        return new InnerHolder(itemView);
+        return new HistoryAndFavoriteContentAdapter.InnerHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull InnerHolder holder, int position) {
-        ComicsCategory.DataBean.ComicsBean.DocsBean docsBean = mDocsList.get(position);
+        ComicsCategory.DataBean.ComicsBean.DocsBean docsBean = mData.get(position);
         holder.setData(docsBean);
         holder.itemView.setOnClickListener(v -> {
             if (mListenComicsItemClickListener != null) {
@@ -58,21 +57,20 @@ public class ComicsCategoryContentAdapter extends RecyclerView.Adapter<ComicsCat
 
     @Override
     public int getItemCount() {
-        return mDocsList.size();
+        return mData.size();
     }
 
-    // 适配器拿到content，去前端渲染
     @SuppressLint("NotifyDataSetChanged")
-    public void setData(List<ComicsCategory.DataBean.ComicsBean.DocsBean> body) {
-        mDocsList.clear();
-        mDocsList.addAll(body);
+    public void setData(List<ComicsCategory.DataBean.ComicsBean.DocsBean> docs) {
+        mData.clear();
+        mData.addAll(docs);
         notifyDataSetChanged();
     }
 
     public void addData(List<ComicsCategory.DataBean.ComicsBean.DocsBean> docs) {
-        int oldSize = mDocsList.size();
-        mDocsList.addAll(docs);
-        notifyItemChanged(oldSize,mDocsList.size());
+        int oldSize = mData.size();
+        mData.addAll(docs);
+        notifyItemChanged(oldSize,mData.size());
     }
 
     @SuppressLint("NonConstantResourceId")

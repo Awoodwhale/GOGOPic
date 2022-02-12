@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <com.hjq.bar.TitleBar
+        android:id="@+id/tb_history_and_favorite_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/pink_light"
+        app:childPaddingVertical="10dp"
+        app:titleSize="23dp"/>
+
+    <TextView
+        android:background="#eeeeee"
+        android:id="@+id/tv_category_now_page"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="加载"
+        android:gravity="center"
+        android:textSize="14sp" />
+
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:layout_width="match_parent"
+        android:id="@+id/srl_history_and_favorite_refresh"
+        android:layout_height="wrap_content">
+        <com.scwang.smart.refresh.header.ClassicsHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_history_and_favorite_content_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <com.scwang.smart.refresh.footer.ClassicsFooter
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
+</LinearLayout>

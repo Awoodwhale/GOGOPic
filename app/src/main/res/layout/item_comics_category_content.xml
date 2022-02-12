@@ -8,7 +8,7 @@
         android:layout_width="95dp"
         android:layout_height="130dp"
         android:id="@+id/iv_comics_category_front_cover"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         android:src="@mipmap/loading"
         android:layout_marginBottom="5dp"/>

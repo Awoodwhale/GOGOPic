@@ -9,7 +9,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import top.woodwhale.gogopic.model.domain.API;
+import top.woodwhale.gogopic.model.API;
 import top.woodwhale.gogopic.model.domain.Categories;
 import top.woodwhale.gogopic.presenter.IHomePresenter;
 import top.woodwhale.gogopic.utils.HeaderUtils;

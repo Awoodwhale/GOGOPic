@@ -2,26 +2,253 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:toolbar="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
-
-
-    <include
-        android:id="@+id/include"
-        layout="@layout/item_comics_category_content"/>
-
-    <LinearLayout
+    <com.hjq.bar.TitleBar
+        android:id="@+id/tb_comics_main_info_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/pink_light"
+        app:childPaddingVertical="10dp"
+        app:titleSize="23dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="end|center_vertical">
+
+            <ImageView
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:id="@+id/iv_comics_click_like"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center" />
+
+            <ImageView
+                android:id="@+id/iv_comics_click_collect"
+                android:layout_width="21dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="?android:attr/selectableItemBackground" />
+        </LinearLayout>
+    </com.hjq.bar.TitleBar>
+
+
+    <LinearLayout
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@+id/include">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="95dp"
+            android:layout_height="130dp"
+            android:id="@+id/iv_comics_category_front_cover"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:src="@mipmap/loading"
+            android:layout_marginBottom="5dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_comics_category_title"
+                    android:layout_width="240dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toStartOf="@+id/tv_comics_category_is_it_over"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:lines="2"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_comics_category_is_it_over"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="5dp"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/iv_comics_category_author"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/pink_light"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/tv_comics_category_classification"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="21dp"
+                    android:layout_height="21dp"
+                    android:id="@+id/iv_comics_category_love"
+                    android:src="@mipmap/love"/>
+
+                <TextView
+                    android:id="@+id/tv_comics_category_love_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:textColor="@color/pink_dark"
+                    android:layout_toEndOf="@+id/iv_comics_category_love"
+                    android:gravity="center" />
+
+                <TextView
+                    android:id="@+id/tv_comics_category_pagination"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_toEndOf="@+id/tv_comics_category_love_count"
+                    android:gravity="center" />
+
+                <ImageView
+                    android:id="@+id/iv_comics_category_watch"
+                    android:layout_width="21dp"
+                    android:layout_height="21dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_toEndOf="@+id/tv_comics_category_pagination"
+                    android:src="@mipmap/watch" />
+
+               <TextView
+                   android:layout_marginLeft="5dp"
+                   android:layout_marginRight="5dp"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/tv_comics_category_watch_count"
+                   android:layout_toEndOf="@+id/iv_comics_category_watch"
+                   android:gravity="center"
+                   android:textColor="@color/pink_dark"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
     </LinearLayout>
 
 
 
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_tag_container_bg">
+        <co.lujun.androidtagview.TagContainerLayout
+            android:layout_margin="1dp"
+            android:id="@+id/tcl_comics_tag"
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            app:tag_clickable="true"
+            app:horizontal_interval="10dp"
+            app:vertical_interval="10dp"
+            app:container_border_width="0dp"
+            app:tag_theme="random"
+            app:container_background_color="#fafafa"
+            app:container_border_color="#fafafa"
+            app:container_border_radius="0dp"
+            android:layout_height="wrap_content">
+        </co.lujun.androidtagview.TagContainerLayout>
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_comics_description"
+            android:gravity="center_vertical"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"/>
+    </LinearLayout>
+    <RelativeLayout
+        android:background="@drawable/shape_tag_container_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <TextView
+            android:id="@+id/tv_comics_creator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/tv_comics_chineseTeam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            tools:ignore="RelativeOverlap" />
+    </RelativeLayout>
+    
+    
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tl_comics_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vp2_comics_chapter_or_comment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    
 </LinearLayout>

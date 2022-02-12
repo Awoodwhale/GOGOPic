@@ -2,7 +2,8 @@ package top.woodwhale.gogopic.ui.activity;
 
 import top.woodwhale.gogopic.base.BaseActivity;
 
-public class ShowComics extends BaseActivity {
+public class WatchComicsActivity extends BaseActivity {
+
     @Override
     protected void initView() {
 

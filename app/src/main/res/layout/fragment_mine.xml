@@ -3,15 +3,16 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
+
     android:layout_height="match_parent">
 
     <LinearLayout
         android:background="@drawable/mine_background_color"
-
-        android:layout_weight="2"
         android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:gravity="center_vertical"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:gravity="center"
+        android:layout_gravity="center"
         android:orientation="vertical">
 
         <ImageView
@@ -45,80 +46,105 @@
             android:layout_marginTop="4dp"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:gravity="center_vertical"
-        android:layout_weight="8"
-        android:layout_marginTop="5dp"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:gravity="center_vertical"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_gravity="center"
+            android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="应用设置"
-            android:textSize="20sp"
-            android:layout_marginTop="10dp"
-            android:paddingLeft="20dp"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <TextView
-            android:gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="我的收藏"
-            android:textSize="20sp"
-            android:layout_marginTop="10dp"
-            android:paddingLeft="20dp"/>
+            <TextView
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="应用设置"
+                android:textSize="18sp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_margin="5dp"
+                android:paddingLeft="15dp"/>
 
-        <TextView
-            android:gravity="center_vertical"
-            android:paddingLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:textSize="20sp"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="我的评论"/>
+            <TextView
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:id="@+id/tv_mine_favorite"
+                android:layout_height="wrap_content"
+                android:text="我的收藏"
+                android:textSize="18sp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_margin="5dp"
+                android:paddingLeft="15dp"/>
 
-        <TextView
-            android:gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="浏览历史"
-            android:textSize="20sp"
-            android:layout_marginTop="10dp"
-            android:paddingLeft="20dp"/>
+            <TextView
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="浏览历史"
+                android:id="@+id/tv_mine_history"
+                android:textSize="18sp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_margin="5dp"
+                android:paddingLeft="15dp"/>
 
-        <TextView
-            android:gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="修改密码"
-            android:textSize="20sp"
-            android:layout_marginTop="10dp"
-            android:paddingLeft="20dp"/>
+            <TextView
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:layout_margin="5dp"
+                android:paddingLeft="15dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textSize="18sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="我的评论"/>
 
-        <TextView
-            android:background="?android:attr/selectableItemBackground"
-            android:id="@+id/tv_mine_exit"
-            android:gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="退出登录"
-            android:textSize="20sp"
-            android:layout_marginTop="10dp"
-            android:paddingLeft="20dp"/>
+            <TextView
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="修改密码"
+                android:textSize="18sp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_margin="5dp"
+                android:paddingLeft="15dp"/>
 
-        <TextView
-            android:gravity="center_vertical"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="关于应用"
-            android:textSize="20sp"
-            android:layout_marginTop="10dp"
-            android:paddingLeft="20dp"/>
+            <TextView
+                android:background="?android:attr/selectableItemBackground"
+                android:id="@+id/tv_mine_exit"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="退出登录"
+                android:textSize="18sp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_margin="5dp"
+                android:paddingLeft="15dp"/>
 
-    </LinearLayout>
+            <TextView
+                android:background="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="关于应用"
+                android:textSize="18sp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_margin="5dp"
+                android:paddingLeft="15dp"/>
 
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>

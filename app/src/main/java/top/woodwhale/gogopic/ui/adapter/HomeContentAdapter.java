@@ -11,8 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,22 +19,23 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import top.woodwhale.gogopic.R;
 import top.woodwhale.gogopic.model.domain.Categories;
+import top.woodwhale.gogopic.utils.UrlUtils;
 
 public class HomeContentAdapter extends RecyclerView.Adapter<HomeContentAdapter.InnerHolder> {
 
     private List<Categories.DataBean.CategoriesBean> mCategoriesBeanList = new ArrayList<>();
+
+    public interface OnListenItemClickListener {
+        void onItemClick(Categories.DataBean.CategoriesBean data);
+    }
 
     private OnListenItemClickListener mListenItemClickListener = null;
 
     public void unregisterOnListenItemClickListener(OnListenItemClickListener mListenItemClickListener) {
         this.mListenItemClickListener = null;
     }
-
     public void registerOnListenItemClickListener(OnListenItemClickListener mListenItemClickListener) {
         this.mListenItemClickListener = mListenItemClickListener;
-    }
-    public interface OnListenItemClickListener {
-        void onItemClick(Categories.DataBean.CategoriesBean data);
     }
 
     @NonNull
@@ -87,13 +86,9 @@ public class HomeContentAdapter extends RecyclerView.Adapter<HomeContentAdapter.
 
         public void setData(Categories.DataBean.CategoriesBean data) {
             mCategoryTitle.setText(data.getTitle());
-            String imgPath = data.getThumb().getFileServer()+"/static/"+data.getThumb().getPath();
-            // 设置圆角
-            RoundedCorners roundedCorners = new RoundedCorners(75);
-            RequestOptions options = RequestOptions.bitmapTransform(roundedCorners);
+            String imgPath = UrlUtils.getAddStaticPicPathUrl(data.getThumb().getFileServer(),data.getThumb().getPath());
             Glide.with(itemView.getContext())
                     .load(imgPath)
-                    .apply(options)
                     .thumbnail(0.5f)
                     .into(mCategoryCover);
         }

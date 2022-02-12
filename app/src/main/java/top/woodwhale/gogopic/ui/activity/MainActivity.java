@@ -1,6 +1,7 @@
 package top.woodwhale.gogopic.ui.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -75,6 +76,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onRightClick(TitleBar titleBar) {
                 // TODO：设置搜索事件
+                startActivity(new Intent(MainActivity.this,SearchActivity.class));
             }
         });
     }
