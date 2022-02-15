@@ -30,7 +30,7 @@ public class EpsChapterPresenterImpl implements IEpsChapterPresenter {
 
 
     @Override
-    public void getEpsChapter(String bookID, int page) {
+    public void getEpsChapter(String bookID, int page, boolean isLoadMore) {
         String url = UrlUtils.getEpsChapterUrl(bookID,page);
         Retrofit retrofit = RetrofitManager.getInstance().getRetrofit();
         API api = retrofit.create(API.class);
@@ -39,7 +39,7 @@ public class EpsChapterPresenterImpl implements IEpsChapterPresenter {
             @Override
             public void onResponse(@NonNull Call<ComicsChapter> call, @NonNull Response<ComicsChapter> response) {
                 LogUtils.d(EpsChapterPresenterImpl.this,"eps code --> " + response.code());
-                if (response.code() == 200) {
+                if (response.code() == 200 && mCallback != null) {
                     ComicsChapter body = response.body();
                     if (body == null ||
                             body.getData() == null ||
@@ -47,17 +47,25 @@ public class EpsChapterPresenterImpl implements IEpsChapterPresenter {
                             body.getData().getEps().getDocs().size() == 0) {
                         mCallback.onEmpty();
                     } else {
-                        mCallback.onEpsChapterLoaded(body);
+                        if (isLoadMore) {
+                            mCallback.onEpsChapterLoadedMore(body);
+                        } else {
+                            mCallback.onEpsChapterLoaded(body);
+                        }
                     }
                 } else {
-                    mCallback.onNetworkError();
+                    if (mCallback != null) {
+                        mCallback.onNetworkError();
+                    }
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<ComicsChapter> call, @NonNull Throwable t) {
                 LogUtils.e(EpsChapterPresenterImpl.this,"eps error --> " + t.toString());
-                mCallback.onNetworkError();
+                if (mCallback != null) {
+                    mCallback.onNetworkError();
+                }
             }
         });
     }

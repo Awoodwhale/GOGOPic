@@ -60,6 +60,8 @@ public class ShowComicsActivity extends BaseActivity implements IComicsInfoCallb
     private boolean mIsLiked;
     private boolean mCanTouchLike = true;
     private boolean mCanTouchFavorite = true;
+    private int mCommentsCount;
+    private Vp2FragmentAdapter mVp2FragmentAdapter;
 
     @Override
     protected int getLayoutResID() {
@@ -160,6 +162,7 @@ public class ShowComicsActivity extends BaseActivity implements IComicsInfoCallb
     @Override
     public void onComicsInfoLoaded(ComicsMain body) {
         ComicsMain.DataBean.ComicBean comic = body.getData().getComic();
+        mCommentsCount = body.getData().getComic().getCommentsCount();
         handleLoadView(comic);
         showSuccess();
     }
@@ -285,7 +288,8 @@ public class ShowComicsActivity extends BaseActivity implements IComicsInfoCallb
 
     // 处理vp2和tabLayout
     private void handleFragment() {
-        mComicsChapterOrCommentVp2.setAdapter(new Vp2FragmentAdapter(this));
+        mVp2FragmentAdapter = new Vp2FragmentAdapter(this);
+        mComicsChapterOrCommentVp2.setAdapter(mVp2FragmentAdapter);
         TabLayoutMediator tab = new TabLayoutMediator(mComicsTabsTb, mComicsChapterOrCommentVp2, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
@@ -294,7 +298,7 @@ public class ShowComicsActivity extends BaseActivity implements IComicsInfoCallb
                         tab.setText("章节");
                         break;
                     case 1:
-                        tab.setText("评论");
+                        tab.setText("评论("+mCommentsCount+")");
                         break;
                 }
             }

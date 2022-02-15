@@ -3,6 +3,7 @@ package top.woodwhale.gogopic.ui.fragment;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,6 +28,7 @@ public class ChapterFragment extends BaseFragment implements IEpsChapterCallback
     private IEpsChapterPresenter mEpsChapterPresenter;
     private String mComicsID;
     private ComicsChaptersAdapter mComicsChaptersAdapter;
+    private int mPages;
 
     @Override
     protected int getRootViewResId() {
@@ -39,11 +41,11 @@ public class ChapterFragment extends BaseFragment implements IEpsChapterCallback
         Intent intent = requireActivity().getIntent();
         mComicsID = intent.getStringExtra(Constants.CATEGORY_ID_KEY);
         LogUtils.d(this,"id --> " + mComicsID);
-        // 创建rv布局
-        mEspChapterRv.setLayoutManager(new GridLayoutManager(requireContext(),3));
         // 创建rv适配器
         mComicsChaptersAdapter = new ComicsChaptersAdapter();
         mEspChapterRv.setAdapter(mComicsChaptersAdapter);
+        // 创建rv布局
+        mEspChapterRv.setLayoutManager(new GridLayoutManager(requireContext(),3));
     }
 
     @Override
@@ -54,7 +56,7 @@ public class ChapterFragment extends BaseFragment implements IEpsChapterCallback
 
     @Override
     protected void loadData() {
-        mEpsChapterPresenter.getEpsChapter(mComicsID,1);
+        mEpsChapterPresenter.getEpsChapter(mComicsID,1,false);
     }
 
     @Override
@@ -74,8 +76,9 @@ public class ChapterFragment extends BaseFragment implements IEpsChapterCallback
 
     @Override
     public void onEpsChapterLoaded(ComicsChapter body) {
-        int pages = body.getData().getEps().getPages();
-        if (pages > 1) {
+
+        mPages = body.getData().getEps().getPages();
+        if (mPages > 1) {
             // 因为是逆序输出，所以先去处理第二页以上
             handleMoreChapter();
         }
@@ -84,14 +87,43 @@ public class ChapterFragment extends BaseFragment implements IEpsChapterCallback
         showSuccess();
     }
 
-    private void handleMoreChapter() {
+    @Override
+    public void onEpsChapterLoadedMore(ComicsChapter moreBody) {
+        List<ComicsChapter.DataBean.EpsBean.DocsBean> docs = moreBody.getData().getEps().getDocs();
+        mComicsChaptersAdapter.addData(docs);
+    }
 
+    /**
+     * 处理更多页数加载
+     */
+    private void handleMoreChapter() {
+        LogUtils.d(this,"handleMoreChapter..." + " page --> " + mPages);
+        for (int i = mPages; i >= 2 ; i--) {
+            LogUtils.d(this,"page --> " + i);
+            mEpsChapterPresenter.getEpsChapter(mComicsID,i,true);
+        }
     }
 
     @Override
     protected void release() {
         if (mEpsChapterPresenter != null) {
             mEpsChapterPresenter.unregisterViewCallback(this);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setProperHeightOfView();
+    }
+    private void setProperHeightOfView() {
+        View layoutView = requireView().findViewById(R.id.ll_comics_chapter_container);
+        if (layoutView != null) {
+            ViewGroup.LayoutParams layoutParams = layoutView.getLayoutParams();
+            if (layoutParams!=null) {
+                layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                layoutView.requestLayout();
+            }
         }
     }
 }

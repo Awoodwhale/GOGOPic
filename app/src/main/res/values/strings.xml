@@ -19,4 +19,8 @@
     <string name="favorite">喜欢</string>
     <string name="netflow">分流</string>
     <string name="text_select_page">选择页数</string>
+    <string name="text_post_comment">发表评论</string>
+    <string name="text_before_comment">上一页</string>
+    <string name="text_next_comment">下一页</string>
+    <string name="text_empty">内容为空！</string>
 </resources>

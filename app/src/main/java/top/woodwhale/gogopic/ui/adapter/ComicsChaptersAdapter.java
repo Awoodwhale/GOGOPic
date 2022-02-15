@@ -14,6 +14,7 @@ import java.util.List;
 
 import top.woodwhale.gogopic.R;
 import top.woodwhale.gogopic.model.domain.ComicsChapter;
+import top.woodwhale.gogopic.utils.LogUtils;
 
 public class ComicsChaptersAdapter extends RecyclerView.Adapter<ComicsChaptersAdapter.InnerHolder> {
     private final List<ComicsChapter.DataBean.EpsBean.DocsBean> mDocsBeans = new ArrayList<>();
@@ -38,9 +39,14 @@ public class ComicsChaptersAdapter extends RecyclerView.Adapter<ComicsChaptersAd
 
     @SuppressLint("NotifyDataSetChanged")
     public void setData(List<ComicsChapter.DataBean.EpsBean.DocsBean> docs) {
-        mDocsBeans.clear();
         mDocsBeans.addAll(docs);
         notifyDataSetChanged();
+    }
+
+    public void addData(List<ComicsChapter.DataBean.EpsBean.DocsBean> docs) {
+        int oldSize = mDocsBeans.size();
+        mDocsBeans.addAll(docs);
+        notifyItemRangeChanged(oldSize,docs.size());
     }
 
     public static class InnerHolder extends RecyclerView.ViewHolder {
@@ -58,7 +64,8 @@ public class ComicsChaptersAdapter extends RecyclerView.Adapter<ComicsChaptersAd
             mComicsChapterBt.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    LogUtils.d(InnerHolder.this,"title --> " + docsBean.getTitle());
+                    LogUtils.d(InnerHolder.this,"id --> " + docsBean.getId1());
                 }
             });
         }

@@ -13,6 +13,7 @@ import top.woodwhale.gogopic.model.domain.AuthSignIn;
 import top.woodwhale.gogopic.model.domain.Categories;
 import top.woodwhale.gogopic.model.domain.ComicsCategory;
 import top.woodwhale.gogopic.model.domain.ComicsChapter;
+import top.woodwhale.gogopic.model.domain.ComicsComment;
 import top.woodwhale.gogopic.model.domain.ComicsMain;
 import top.woodwhale.gogopic.model.domain.Keywords;
 import top.woodwhale.gogopic.model.domain.LikeOrFavorite;
@@ -64,4 +65,8 @@ public interface API {
     // 获取漫画章节
     @GET
     Call<ComicsChapter> getEpsChapter(@HeaderMap Map<String, String> headerMap, @Url String url);
+
+    // 获取漫画评论
+    @GET
+    Call<ComicsComment> getComicsComment(@HeaderMap Map<String, String> headerMap, @Url String url);
 }

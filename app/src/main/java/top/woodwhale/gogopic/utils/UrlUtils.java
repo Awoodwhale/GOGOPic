@@ -64,4 +64,8 @@ public class UrlUtils {
     public static String getEpsChapterUrl(String bookID, int page) {
         return "comics/"+bookID+"/eps?page="+page;
     }
+
+    public static String getComicsCommentUrl(String bookID, int page) {
+        return "comics/"+bookID+"/comments?page="+page;
+    }
 }
