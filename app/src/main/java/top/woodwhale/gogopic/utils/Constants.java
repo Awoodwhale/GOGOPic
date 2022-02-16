@@ -24,4 +24,6 @@ public class Constants {
     public static final String HISTORY_OR_FAVORITE_KEY = "history_or_favorite_key";
     // 所有分类
     public static ArrayList<String> CATEGORISE_LISTS = new ArrayList<>();
+    // 被ban后的分类
+    public static ArrayList<String> BANNED_CATEGORISE_LISTS = new ArrayList<>();
 }

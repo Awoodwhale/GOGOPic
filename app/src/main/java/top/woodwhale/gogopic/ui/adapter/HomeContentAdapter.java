@@ -51,12 +51,9 @@ public class HomeContentAdapter extends RecyclerView.Adapter<HomeContentAdapter.
         Categories.DataBean.CategoriesBean categoriesBean = mCategoriesBeanList.get(position);
         holder.setData(categoriesBean);
         // 给每一个imageView设置对应的点击事件
-        holder.mCategoryCover.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mListenItemClickListener != null) {
-                    mListenItemClickListener.onItemClick(categoriesBean);
-                }
+        holder.mCategoryCover.setOnClickListener(v -> {
+            if (mListenItemClickListener != null) {
+                mListenItemClickListener.onItemClick(categoriesBean);
             }
         });
     }

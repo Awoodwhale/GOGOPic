@@ -8,4 +8,5 @@ public interface IHomePresenter extends IBasePresenter<IHomeCallback> {
      * 获取主页分类
      */
     void getCategories();
+
 }

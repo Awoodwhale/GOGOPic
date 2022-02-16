@@ -2,9 +2,6 @@ package top.woodwhale.gogopic.presenter.impl;
 
 import androidx.annotation.NonNull;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -49,7 +46,7 @@ public class HomePresenterImpl implements IHomePresenter {
                         mCallback.onEmpty();
                     } else {
                         // 成功就回调处理
-                        mCallback.onCategoriesLoaded(handleCategories(categories));
+                        mCallback.onCategoriesLoaded(categories);
                     }
                 } else {
                     if (mCallback != null) {
@@ -68,17 +65,4 @@ public class HomePresenterImpl implements IHomePresenter {
         });
     }
 
-    // 将有用的信息抽取出来进行回调
-    private List<Categories.DataBean.CategoriesBean> handleCategories(Categories categories) {
-        List<Categories.DataBean.CategoriesBean> tmpList = new ArrayList<>();
-        List<Categories.DataBean.CategoriesBean> categoriesBeanList = categories.getData().getCategories();
-        for (Categories.DataBean.CategoriesBean categoriesBean : categoriesBeanList) {
-            Categories.DataBean.CategoriesBean.ThumbBean thumb = categoriesBean.getThumb();
-            String imgPath = thumb.getFileServer()+"/static/"+thumb.getPath();
-            if (imgPath.contains(".picacomic.")) {
-                tmpList.add(categoriesBean);
-            }
-        }
-        return tmpList;
-    }
 }

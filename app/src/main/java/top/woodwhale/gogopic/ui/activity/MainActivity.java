@@ -3,6 +3,7 @@ package top.woodwhale.gogopic.ui.activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -10,13 +11,20 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.hjq.bar.OnTitleBarListener;
 import com.hjq.bar.TitleBar;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import top.woodwhale.gogopic.R;
 import top.woodwhale.gogopic.base.BaseActivity;
 import top.woodwhale.gogopic.base.BaseFragment;
+import top.woodwhale.gogopic.presenter.IHomePresenter;
 import top.woodwhale.gogopic.ui.fragment.HomeFragment;
 import top.woodwhale.gogopic.ui.fragment.MineFragment;
+import top.woodwhale.gogopic.utils.Constants;
 import top.woodwhale.gogopic.utils.LogUtils;
+import top.woodwhale.gogopic.utils.SharedPreferencesUtils;
+
 
 @SuppressLint("NonConstantResourceId")
 public class MainActivity extends BaseActivity {
@@ -27,6 +35,7 @@ public class MainActivity extends BaseActivity {
     private MineFragment mMineFragment;
     @BindView(R.id.main_navigation_bar) BottomNavigationView mNavigationView;
     @BindView(R.id.tb_home_toolbar) TitleBar mTitleBar;
+    private IHomePresenter mHomePresenter;
 
     @Override
     protected void initView() {
@@ -35,7 +44,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initPresenter() {
-        // TODO:处理搜索和ban书的逻辑层
     }
 
     // 初始化管理fragment
@@ -71,14 +79,47 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onLeftClick(TitleBar titleBar) {
                 // TODO：设置ban书事件
+                handleBanBooks();
             }
 
             @Override
             public void onRightClick(TitleBar titleBar) {
-                // TODO：设置搜索事件
                 startActivity(new Intent(MainActivity.this,SearchActivity.class));
             }
         });
+    }
+
+
+
+    /**
+     * ban书
+     */
+    private void handleBanBooks() {
+        if (Constants.CATEGORISE_LISTS != null) {
+            List<String> banBooksList = new ArrayList<>();
+            String[] multiItem = Constants.CATEGORISE_LISTS.toArray(new String[0]);
+            final int length = multiItem.length;
+            boolean[] checkedItem = new boolean[length];
+            for (int i = 0; i < length; i++) {
+                checkedItem[i] = !Constants.BANNED_CATEGORISE_LISTS.contains(multiItem[i]);
+            }
+            AlertDialog.Builder multiDialog = new AlertDialog.Builder(this);
+            multiDialog.setTitle("禁书目录");
+            multiDialog.setMultiChoiceItems(multiItem, checkedItem, (dialog, which, isChecked) -> checkedItem[which] = isChecked);
+            multiDialog.setPositiveButton("确定", (dialog, which) -> {
+                for (int i = 0; i < length; i++ ){
+                    if (checkedItem[i]){
+                        banBooksList.add(multiItem[i]);
+                    }
+                }
+                // 将得到的ban书写入sp中
+                SharedPreferencesUtils.handleBanBooks(banBooksList,MainActivity.this);
+                // 写完去loadData
+                mHomeFragment.loadData();
+            });
+            multiDialog.setNegativeButton("取消",null);
+            multiDialog.show();
+        }
     }
 
     @Override
@@ -100,4 +141,5 @@ public class MainActivity extends BaseActivity {
         lastShowFragment = fragment;
         fragmentTransaction.commit();
     }
+
 }

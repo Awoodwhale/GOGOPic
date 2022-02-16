@@ -12,6 +12,7 @@ public class SharedPreferencesUtils {
     public final static String LOGIN_PREFERENCE_NAME = "GOGOPicLogin";
     public final static String SEARCH_PREFERENCE_NAME = "GOGOPicSearch";
     public final static String SEARCH_HISTORY = "GOGOPicSearchHistory";
+    public final static String BAN_BOOKS = "GOGOPicBanBooks";
     // 保存搜索记录
     public static void saveSearchHistory(String inputText, Context context) {
         SharedPreferences sp = context.
@@ -42,12 +43,11 @@ public class SharedPreferencesUtils {
             }
             //保存到sp
             editor.putString(SEARCH_HISTORY, sb.toString());
-            editor.apply();
         } else {
             //之前未添加过
             editor.putString(SEARCH_HISTORY, inputText + ",");
-            editor.apply();
         }
+        editor.apply();
     }
     //获取搜索记录
     public static List<String> getSearchHistory(Context context){
@@ -69,4 +69,33 @@ public class SharedPreferencesUtils {
         editor.apply();
     }
 
+    // 读取ban书目录
+    public static List<String> getBanBooks(Context context) {
+        SharedPreferences sp = context.getSharedPreferences(BAN_BOOKS, Context.MODE_PRIVATE);
+        String banStr = sp.getString(BAN_BOOKS, null);
+        if (banStr != null) {
+            String[] banBooks = banStr.split(",");
+            return new ArrayList<>(Arrays.asList(banBooks));
+        }
+        return new ArrayList<>();
+    }
+
+    // 编辑ban书目录
+    public static void handleBanBooks(List<String> booksList,Context context) {
+        SharedPreferences sp = context.getSharedPreferences(BAN_BOOKS, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        // 进来就删除
+        editor.clear();
+        if (booksList.size() != 0) {
+            StringBuilder sb = new StringBuilder();
+            for (String s : booksList) {
+                sb.append(s).append(",");
+            }
+            // 删除最后一位
+            int oldLength = sb.length();
+            sb.deleteCharAt(oldLength-1);
+            editor.putString(BAN_BOOKS,sb.toString());
+        }
+        editor.apply();
+    }
 }

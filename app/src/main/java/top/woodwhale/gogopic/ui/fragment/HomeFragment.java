@@ -23,6 +23,7 @@ import top.woodwhale.gogopic.ui.adapter.HomeContentAdapter;
 import top.woodwhale.gogopic.utils.Constants;
 import top.woodwhale.gogopic.utils.LogUtils;
 import top.woodwhale.gogopic.utils.PresenterManager;
+import top.woodwhale.gogopic.utils.SharedPreferencesUtils;
 import top.woodwhale.gogopic.utils.UrlUtils;
 import top.woodwhale.gogopic.view.IHomeCallback;
 
@@ -33,7 +34,6 @@ public class HomeFragment extends BaseFragment implements IHomeCallback, HomeCon
 
     private IHomePresenter mHomePresent;
     private HomeContentAdapter mHomeContentAdapter;
-    private final ArrayList<String> mTitlesList = new ArrayList<>();
 
     @Override
     protected int getRootViewResId() {
@@ -89,22 +89,51 @@ public class HomeFragment extends BaseFragment implements IHomeCallback, HomeCon
     }
 
     @Override
-    protected void loadData() {
+    public void loadData() {
         if (mHomePresent != null) {
             mHomePresent.getCategories();
         }
     }
 
     @Override
-    public void onCategoriesLoaded(List<Categories.DataBean.CategoriesBean> categories) {
-        if (mHomeContentAdapter != null) {
-            mHomeContentAdapter.setData(categories);
-            for (Categories.DataBean.CategoriesBean category : categories) {
-                mTitlesList.add(category.getTitle());
+    public void onCategoriesLoaded(Categories categories) {
+        // 设置所有标题
+        ArrayList<String> allTitlesList = new ArrayList<>();
+        for (Categories.DataBean.CategoriesBean category : categories.getData().getCategories()) {
+            Categories.DataBean.CategoriesBean.ThumbBean thumb = category.getThumb();
+            String imgPath = UrlUtils.getAddStaticPicPathUrl(thumb.getFileServer(),thumb.getPath());
+            if (imgPath.contains(".picacomic.") ) {
+                allTitlesList.add(category.getTitle());
             }
-            Constants.CATEGORISE_LISTS = mTitlesList;
+        }
+        Constants.CATEGORISE_LISTS = allTitlesList;
+        // 处理ban书逻辑
+        if (mHomeContentAdapter != null) {
+            List<Categories.DataBean.CategoriesBean> categoriesBeans = handleCategories(categories);
+            ArrayList<String> bannedTitleList = new ArrayList<>();
+            mHomeContentAdapter.setData(categoriesBeans);
+            for (Categories.DataBean.CategoriesBean category : categoriesBeans) {
+                bannedTitleList.add(category.getTitle());
+            }
+            Constants.BANNED_CATEGORISE_LISTS = bannedTitleList;
             showSuccess();
         }
+    }
+
+    // 将有用的信息抽取出来
+    private List<Categories.DataBean.CategoriesBean> handleCategories(Categories categories) {
+        List<Categories.DataBean.CategoriesBean> tmpList = new ArrayList<>();
+        List<Categories.DataBean.CategoriesBean> categoriesBeanList = categories.getData().getCategories();
+        List<String> banBooks = SharedPreferencesUtils.getBanBooks(requireContext());
+        for (Categories.DataBean.CategoriesBean categoriesBean : categoriesBeanList) {
+            Categories.DataBean.CategoriesBean.ThumbBean thumb = categoriesBean.getThumb();
+            String imgPath = UrlUtils.getAddStaticPicPathUrl(thumb.getFileServer(),thumb.getPath());
+            String title = categoriesBean.getTitle();
+            if (imgPath.contains(".picacomic.") && !banBooks.contains(title)) {
+                tmpList.add(categoriesBean);
+            }
+        }
+        return tmpList;
     }
 
     // 重试就是重新加载

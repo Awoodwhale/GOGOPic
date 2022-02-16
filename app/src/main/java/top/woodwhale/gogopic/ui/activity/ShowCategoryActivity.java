@@ -116,7 +116,7 @@ public class ShowCategoryActivity extends BaseActivity implements ICategoryInfoC
 
         mCategorySortIv.setOnClickListener(v -> {
             LogUtils.d(ShowCategoryActivity.this,"跳转");
-            String[] titles = Constants.CATEGORISE_LISTS.toArray(new String[0]);
+            String[] titles = Constants.BANNED_CATEGORISE_LISTS.toArray(new String[0]);
             AlertDialog.Builder listDialog = new AlertDialog.Builder(ShowCategoryActivity.this);
             listDialog.setTitle("选择分类");
             listDialog.setItems(titles, (dialog, which) -> {
@@ -124,7 +124,6 @@ public class ShowCategoryActivity extends BaseActivity implements ICategoryInfoC
                     // 一旦选择了分类，keyword就置空，改为title,并且mFromSearch成为false
                     mSearchKeywords = null;
                     mFromSearch = false;
-
                     mCategoryTitle = titles[which];
                     mTitleBar.setTitle(mCategoryTitle);
                     mNowSortWay = 0;    // 改回默认排序
