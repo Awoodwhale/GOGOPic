@@ -145,7 +145,7 @@ public class ShowCategoryActivity extends BaseActivity implements ICategoryInfoC
 
         mCategoryPageSelectorTv.setOnClickListener(v -> {
             LogUtils.d(ShowCategoryActivity.this,"页面跳转");
-            final EditText editText = new EditText(ShowCategoryActivity.this);
+            EditText editText = new EditText(ShowCategoryActivity.this);
             editText.setInputType(InputType.TYPE_CLASS_NUMBER);
             AlertDialog.Builder editDialog = new AlertDialog.Builder(ShowCategoryActivity.this);
             editDialog.setTitle("请输入页数").setView(editText);

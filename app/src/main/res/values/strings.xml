@@ -23,4 +23,5 @@
     <string name="text_before_comment">上一页</string>
     <string name="text_next_comment">下一页</string>
     <string name="text_empty">内容为空！</string>
+    <string name="text_goto_page">跳转评论页</string>
 </resources>

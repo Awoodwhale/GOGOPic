@@ -33,7 +33,7 @@ public class HomeFragment extends BaseFragment implements IHomeCallback, HomeCon
 
     private IHomePresenter mHomePresent;
     private HomeContentAdapter mHomeContentAdapter;
-    private ArrayList<String> mTitlesList = new ArrayList<>();
+    private final ArrayList<String> mTitlesList = new ArrayList<>();
 
     @Override
     protected int getRootViewResId() {
@@ -49,10 +49,10 @@ public class HomeFragment extends BaseFragment implements IHomeCallback, HomeCon
         mHomeContent.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-                outRect.top = 6;
-                outRect.bottom = 6;
-                outRect.left= 6;
-                outRect.right = 6;
+                outRect.top = 3;
+                outRect.bottom = 3;
+                outRect.left= 3;
+                outRect.right = 3;
             }
         });
     }

@@ -3,6 +3,7 @@ package top.woodwhale.gogopic.model;
 import java.util.Map;
 
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -69,4 +70,8 @@ public interface API {
     // 获取漫画评论
     @GET
     Call<ComicsComment> getComicsComment(@HeaderMap Map<String, String> headerMap, @Url String url);
+
+    // 发表漫画评论
+    @POST
+    Call<ResponseBody> getComicsLaunchComment(@HeaderMap Map<String, String> headerMap, @Url String url, @Body RequestBody body);
 }

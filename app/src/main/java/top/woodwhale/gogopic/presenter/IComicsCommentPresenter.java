@@ -5,4 +5,6 @@ import top.woodwhale.gogopic.view.IComicsCommentCallback;
 
 public interface IComicsCommentPresenter extends IBasePresenter<IComicsCommentCallback> {
     void getComment(String bookID, int page);
+    void launchComment(String bookID, String comment);
+
 }

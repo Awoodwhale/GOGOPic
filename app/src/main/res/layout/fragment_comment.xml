@@ -6,15 +6,36 @@
     android:layout_height="match_parent">
 
 
-    <Button
-        android:id="@+id/bt_comics_launch_commnet"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/text_post_comment"/>
+        android:orientation="horizontal">
+        <Button
+            android:background="@drawable/shape_btn_bg"
+            android:layout_weight="1"
+            android:id="@+id/bt_comics_launch_comment"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_post_comment"
+            style="?android:attr/buttonBarButtonStyle" />
+        <Button
+            android:background="@drawable/shape_btn_bg"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:text="@string/text_goto_page"
+            android:id="@+id/bt_comics_goto_page"
+            style="?android:attr/buttonBarButtonStyle" />
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/tv_comics_comment_pages"
@@ -34,6 +55,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <Button
+            android:background="@drawable/shape_btn_bg"
             android:layout_weight="1"
             android:id="@+id/bt_comics_before_comment"
             android:layout_width="wrap_content"
@@ -45,6 +67,7 @@
             style="?android:attr/buttonBarButtonStyle" />
 
         <Button
+            android:background="@drawable/shape_btn_bg"
             android:layout_weight="1"
             android:id="@+id/bt_comics_next_comment"
             android:layout_width="wrap_content"
