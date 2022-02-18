@@ -30,6 +30,7 @@ import top.woodwhale.gogopic.ui.adapter.Vp2FragmentAdapter;
 import top.woodwhale.gogopic.utils.Constants;
 import top.woodwhale.gogopic.utils.LogUtils;
 import top.woodwhale.gogopic.utils.PresenterManager;
+import top.woodwhale.gogopic.utils.UrlUtils;
 import top.woodwhale.gogopic.view.IComicsInfoCallback;
 
 // 查看漫画详情的activity
@@ -242,7 +243,7 @@ public class ShowComicsActivity extends BaseActivity implements IComicsInfoCallb
         String name = comic.getCreator().getName();
         String uploadTime = " (" +(comic.getUpdatedAt().split("\\.")[0]).
                 replace("T", " ")+")";
-        mComicsCreatorTv.setText(name + uploadTime);
+        mComicsCreatorTv.setText(name + "\n" +uploadTime);
         // 设置汉化组
         mComicsChineseTeam.setText(comic.getChineseTeam());
         // 设置tags
@@ -277,7 +278,7 @@ public class ShowComicsActivity extends BaseActivity implements IComicsInfoCallb
         ComicsMain.DataBean.ComicBean.ThumbBean thumb = comic.getThumb();
         String fileServer = thumb.getFileServer();
         String path = thumb.getPath();
-        String url = fileServer + "/static/" + path;
+        String url = UrlUtils.getAddStaticPicPathUrl(fileServer,path);
         Glide.with(this)
                 .load(url)
                 .thumbnail(0.1f)

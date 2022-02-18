@@ -35,7 +35,8 @@ import top.woodwhale.gogopic.utils.UrlUtils;
 import top.woodwhale.gogopic.view.ICategoryInfoCallback;
 
 @SuppressLint("NonConstantResourceId")
-public class ShowCategoryActivity extends BaseActivity implements ICategoryInfoCallback, ComicsCategoryContentAdapter.OnListenComicsItemClickListener {
+public class ShowCategoryActivity extends BaseActivity implements ICategoryInfoCallback,
+        ComicsCategoryContentAdapter.OnListenComicsItemClickListener {
 
     @BindView(R.id.rv_category_content_list) RecyclerView mComicsCategoryContentListRv;
     @BindView(R.id.srl_comics_home_pager_refresh) RefreshLayout mRefreshLayout;
@@ -56,6 +57,7 @@ public class ShowCategoryActivity extends BaseActivity implements ICategoryInfoC
     private String mSearchKeywords;
     private boolean mFirstSearch = false;
     private boolean mFromSort = false;
+    private boolean mFirstSelect = true;
 
     @Override
     protected int getLayoutResID() {
@@ -171,28 +173,31 @@ public class ShowCategoryActivity extends BaseActivity implements ICategoryInfoC
             editDialog.show();
         });
 
-        // 在创建监听之前，一定要设置false，不然会自动调用一次
-        mCategorySortSp.setSelection(0,false);
         mCategorySortSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mNowSortWay = position;
-                String[] sortWay = getResources().getStringArray(R.array.sort);
-                LogUtils.d(ShowCategoryActivity.this,"sort --> " + sortWay[position]);
-                if (mFromSearch) {
-                    if (mFirstSearch) {
-                        mFirstSearch = false;
-                        LogUtils.d(ShowCategoryActivity.this,"第一次来到搜索不触发");
-                        return;
-                    }
-                    mCategoryPresenter.getSearchSortedCategoryComics(mSearchKeywords,UrlUtils.getComicsSortWay(mNowSortWay));
+                if (mFirstSelect) {
+                    mFirstSelect = false;
                 } else {
-                    if (mFromSort) {
-                        mFromSort = false;
-                        LogUtils.d(ShowCategoryActivity.this,"更改分类不触发");
-                        return;
+                    mNowSortWay = position;
+                    String[] sortWay = getResources().getStringArray(R.array.sort);
+                    LogUtils.d(ShowCategoryActivity.this,"sort --> " + sortWay[position]);
+                    LogUtils.d(ShowCategoryActivity.this,"mFromSearch --> " + mFromSearch);
+                    if (mFromSearch) {
+                        if (mFirstSearch) {
+                            mFirstSearch = false;
+                            LogUtils.d(ShowCategoryActivity.this,"第一次来到搜索不触发");
+                            return;
+                        }
+                        mCategoryPresenter.getSearchSortedCategoryComics(mSearchKeywords,UrlUtils.getComicsSortWay(mNowSortWay));
+                    } else {
+                        if (mFromSort) {
+                            mFromSort = false;
+                            LogUtils.d(ShowCategoryActivity.this,"更改分类不触发");
+                            return;
+                        }
+                        mCategoryPresenter.getSortedCategoryComics(mCategoryTitle, UrlUtils.getComicsSortWay(mNowSortWay));
                     }
-                    mCategoryPresenter.getSortedCategoryComics(mCategoryTitle, UrlUtils.getComicsSortWay(mNowSortWay));
                 }
             }
             @Override
@@ -267,6 +272,7 @@ public class ShowCategoryActivity extends BaseActivity implements ICategoryInfoC
     @SuppressLint("SetTextI18n")
     @Override
     public void onSearchSuccess(ComicsCategory body, int nowPage, String keywords) {
+        LogUtils.d(this,"onSearchSuccess...");
         refreshRv();
         // 设置关键字
         mSearchKeywords = keywords;

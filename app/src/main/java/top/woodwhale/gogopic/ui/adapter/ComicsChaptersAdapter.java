@@ -14,10 +14,22 @@ import java.util.List;
 
 import top.woodwhale.gogopic.R;
 import top.woodwhale.gogopic.model.domain.ComicsChapter;
-import top.woodwhale.gogopic.utils.LogUtils;
 
 public class ComicsChaptersAdapter extends RecyclerView.Adapter<ComicsChaptersAdapter.InnerHolder> {
     private final List<ComicsChapter.DataBean.EpsBean.DocsBean> mDocsBeans = new ArrayList<>();
+    private OnListenChapterButtonClickListener listener;
+
+    public interface OnListenChapterButtonClickListener{
+        void onButtonClick(int order);
+    }
+
+    public void registerOnListenChapterButtonClickListener(OnListenChapterButtonClickListener listener) {
+        this.listener = listener;
+    }
+
+    public void unregisterOnListenChapterButtonClickListener() {
+        this.listener = null;
+    }
 
     @NonNull
     @Override
@@ -30,6 +42,15 @@ public class ComicsChaptersAdapter extends RecyclerView.Adapter<ComicsChaptersAd
     public void onBindViewHolder(@NonNull InnerHolder holder, int position) {
         ComicsChapter.DataBean.EpsBean.DocsBean docsBean = mDocsBeans.get(position);
         holder.setData(docsBean);
+        holder.mComicsChapterBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int order = docsBean.getOrder();
+                if (listener != null) {
+                    listener.onButtonClick(order);
+                }
+            }
+        });
     }
 
     @Override
@@ -51,7 +72,7 @@ public class ComicsChaptersAdapter extends RecyclerView.Adapter<ComicsChaptersAd
 
     public static class InnerHolder extends RecyclerView.ViewHolder {
 
-        private final Button mComicsChapterBt;
+        private Button mComicsChapterBt;
 
         public InnerHolder(@NonNull View itemView) {
             super(itemView);
@@ -60,14 +81,6 @@ public class ComicsChaptersAdapter extends RecyclerView.Adapter<ComicsChaptersAd
 
         public void setData(ComicsChapter.DataBean.EpsBean.DocsBean docsBean) {
             mComicsChapterBt.setText(docsBean.getTitle());
-            // TODO:设置章节点击事件
-            mComicsChapterBt.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    LogUtils.d(InnerHolder.this,"title --> " + docsBean.getTitle());
-                    LogUtils.d(InnerHolder.this,"id --> " + docsBean.getId1());
-                }
-            });
         }
     }
 }

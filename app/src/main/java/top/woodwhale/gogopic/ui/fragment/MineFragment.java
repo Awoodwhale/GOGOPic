@@ -1,9 +1,7 @@
 package top.woodwhale.gogopic.ui.fragment;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,8 +20,8 @@ import top.woodwhale.gogopic.presenter.IMinePresenter;
 import top.woodwhale.gogopic.ui.activity.HistoryAndFavoriteActivity;
 import top.woodwhale.gogopic.ui.activity.LoginActivity;
 import top.woodwhale.gogopic.utils.Constants;
-import top.woodwhale.gogopic.utils.LogUtils;
 import top.woodwhale.gogopic.utils.PresenterManager;
+import top.woodwhale.gogopic.utils.SharedPreferencesUtils;
 import top.woodwhale.gogopic.utils.UrlUtils;
 import top.woodwhale.gogopic.view.IMineCallback;
 
@@ -36,6 +34,11 @@ public class MineFragment extends BaseFragment implements IMineCallback {
     @BindView(R.id.tv_mine_username) TextView mUserNameTv;
     @BindView(R.id.iv_mine_head_photo) ImageView mHeadPhotoIv;
     private IMinePresenter mMinePresent;
+
+    @Override
+    protected int getRootViewResId() {
+        return R.layout.fragment_mine;
+    }
 
     @OnClick({R.id.tv_mine_exit,R.id.tv_mine_favorite,R.id.tv_mine_history})
     protected void queryPress(View v) {
@@ -52,8 +55,6 @@ public class MineFragment extends BaseFragment implements IMineCallback {
         }
     }
 
-
-
     // 收藏或者页面跳转
     private void handleFavoriteActivity(boolean isFavorite) {
         Intent intent = new Intent(requireContext(), HistoryAndFavoriteActivity.class);
@@ -67,7 +68,6 @@ public class MineFragment extends BaseFragment implements IMineCallback {
      * 用户退出登录，需要将文件删除
      */
     private void handleExit() {
-        LogUtils.d(this,"退出登录！");
         AlertDialog.Builder alertdialogBuilder = new AlertDialog.Builder(requireContext());
         alertdialogBuilder.setIcon(R.mipmap.exit_pic);
         alertdialogBuilder.setTitle("退出登录");
@@ -79,19 +79,9 @@ public class MineFragment extends BaseFragment implements IMineCallback {
 
     private void chooseExit() {
         RxToast.info("下次得登录了哦~");
-        SharedPreferences.Editor edit = requireActivity()
-                .getSharedPreferences("GOGOPicLogin", Context.MODE_PRIVATE)
-                .edit();
-        // 清空数据就走
-        edit.clear();
-        edit.apply();
+        SharedPreferencesUtils.exitLogin(requireContext());
         requireActivity().startActivity(new Intent(requireActivity(), LoginActivity.class));
         requireActivity().finish();
-    }
-
-    @Override
-    protected int getRootViewResId() {
-        return R.layout.fragment_mine;
     }
 
     @Override

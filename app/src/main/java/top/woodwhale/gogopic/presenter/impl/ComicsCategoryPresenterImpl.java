@@ -23,11 +23,13 @@ public class ComicsCategoryPresenterImpl implements IComicsCategoryPresenter {
     private static int mState = -1;
     private ComicsCategory mBody;
     // 当前页数
-    private static int nowPage;
+    private static int mNowPage;
+    private ComicsCategory mSearchCategories;
+    private String mKeywords;
 
     @Override
     public void getCategoryComics(String title, String sortWay, int page) {
-        nowPage = page;
+        mNowPage = page;
         String url = UrlUtils.getComicsCategoryInfoUrl(String.valueOf(page),title,sortWay);
         LogUtils.d(this,"url --> " + url);
         firstGetCategoryContent(url,false);
@@ -36,7 +38,7 @@ public class ComicsCategoryPresenterImpl implements IComicsCategoryPresenter {
 
     @Override
     public void getLoadMoreCategoryComics(String title, String sortWay) {
-        String url = UrlUtils.getComicsCategoryInfoUrl(String.valueOf(nowPage),title,sortWay);
+        String url = UrlUtils.getComicsCategoryInfoUrl(String.valueOf(mNowPage),title,sortWay);
         LogUtils.d(this,"url --> " + url);
         firstGetCategoryContent(url,true);
     }
@@ -44,33 +46,34 @@ public class ComicsCategoryPresenterImpl implements IComicsCategoryPresenter {
     @Override
     public void getSortedCategoryComics(String title,String sortWay) {
         // 选择新排序从第一页开始
-        nowPage = 1;
-        String url = UrlUtils.getComicsCategoryInfoUrl(String.valueOf(nowPage),title,sortWay);
+        mNowPage = 1;
+        String url = UrlUtils.getComicsCategoryInfoUrl(String.valueOf(mNowPage),title,sortWay);
         firstGetCategoryContent(url,false);
     }
 
     @Override
     public void getPageJumpCategoryComics(String title, String sortWay, int page) {
-        nowPage = page;
-        String url = UrlUtils.getComicsCategoryInfoUrl(String.valueOf(nowPage), title, sortWay);
+        mNowPage = page;
+        String url = UrlUtils.getComicsCategoryInfoUrl(String.valueOf(mNowPage), title, sortWay);
         LogUtils.d(this,"page jump url --> " + url);
         firstGetCategoryContent(url,false);
     }
 
     @Override
     public void getChangedCategoryComics(String title) {
-        nowPage = 1;
-        String url = UrlUtils.getComicsCategoryInfoUrl(String.valueOf(nowPage),title);
+        mNowPage = 1;
+        String url = UrlUtils.getComicsCategoryInfoUrl(String.valueOf(mNowPage),title);
         firstGetCategoryContent(url,false);
     }
 
     // 搜素信息
     @Override
     public void getSearchCategoryComics(String keywords) {
-        nowPage = 1;
-        String url = UrlUtils.getSearchUrl(String.valueOf(nowPage));
+        mNowPage = 1;
+        String url = UrlUtils.getSearchUrl(String.valueOf(mNowPage));
         String sortWay = "dd";  // 最新
         String json = "{\"keyword\":\""+keywords+"\",\"sort\":\""+sortWay+"\"}";
+        LogUtils.d(this,"start search!");
         searchGetCategoryContent(keywords, url, json,0);
     }
 
@@ -79,8 +82,8 @@ public class ComicsCategoryPresenterImpl implements IComicsCategoryPresenter {
     @Override
     public void getSearchSortedCategoryComics(String keywords, String sortWay) {
         // 选择新排序从第一页开始
-        nowPage = 1;
-        String url = UrlUtils.getSearchUrl(String.valueOf(nowPage));
+        mNowPage = 1;
+        String url = UrlUtils.getSearchUrl(String.valueOf(mNowPage));
         String postJSON = "{\"keyword\":\""+keywords+"\",\"sort\":\""+sortWay+"\"}";
         searchGetCategoryContent(keywords,url,postJSON,2);
     }
@@ -88,7 +91,7 @@ public class ComicsCategoryPresenterImpl implements IComicsCategoryPresenter {
     // 搜索加载更多
     @Override
     public void getSearchLoadMoreCategoryComics(String keyword, String sortWay) {
-        String url = UrlUtils.getSearchUrl(String.valueOf(nowPage));
+        String url = UrlUtils.getSearchUrl(String.valueOf(mNowPage));
         String postJSON = "{\"keyword\":\""+keyword+"\",\"sort\":\""+sortWay+"\"}";
         searchGetCategoryContent(keyword,url,postJSON,1);
     }
@@ -96,14 +99,15 @@ public class ComicsCategoryPresenterImpl implements IComicsCategoryPresenter {
     // 搜索跳转页面
     @Override
     public void getSearchPageJumpCategoryComics(String keyword, String sortWay, int page) {
-        nowPage = page;
-        String url = UrlUtils.getSearchUrl(String.valueOf(nowPage));
+        mNowPage = page;
+        String url = UrlUtils.getSearchUrl(String.valueOf(mNowPage));
         String postJSON = "{\"keyword\":\""+keyword+"\",\"sort\":\""+sortWay+"\"}";
         searchGetCategoryContent(keyword,url,postJSON,2);
     }
 
     // 搜索提取的方法
     private void searchGetCategoryContent(String keywords, String url, String json, int searchWay) {
+        LogUtils.d(this,"searchGetCategoryContent...");
         if (searchWay != 1) {
             onLoading();
         }
@@ -116,24 +120,25 @@ public class ComicsCategoryPresenterImpl implements IComicsCategoryPresenter {
             public void onResponse(@NonNull Call<ComicsCategory> call, @NonNull Response<ComicsCategory> response) {
                 LogUtils.d(ComicsCategoryPresenterImpl.this,"search content code --> " + response.code());
                 if (response.code() == 200) {
-                    ComicsCategory searchCategories = response.body();
-                    if (searchCategories == null || searchCategories.getData() == null ||
-                            searchCategories.getData().getComics() == null ||
-                            searchCategories.getData().getComics().getDocs() == null||
-                            searchCategories.getData().getComics().getDocs().size() == 0) {
+                    mSearchCategories = response.body();
+                    if (mSearchCategories == null || mSearchCategories.getData() == null ||
+                            mSearchCategories.getData().getComics() == null ||
+                            mSearchCategories.getData().getComics().getDocs() == null||
+                            mSearchCategories.getData().getComics().getDocs().size() == 0) {
                         if (searchWay == 1) {
-                            mCallback.onLoadMoreEmpty();
+                            onLoadMoreEmpty();
                         } else {
                             onEmpty();
                         }
                     } else {
-                        nowPage ++;
+                        mNowPage++;
                         if (searchWay == 0) {   // 0是搜索成功
-                            mCallback.onSearchSuccess(searchCategories,nowPage, keywords);
+                            mKeywords = keywords;
+                            onSearchSuccess();
                         } else if (searchWay == 1) {    // 1是加载更多成功
-                            mCallback.onLoadMoreSuccess(searchCategories,nowPage);
+                            onLoadMoreSuccess();
                         } else {    // 其他就是页面跳转成功或者排序成功
-                            mCallback.onCategoryLoaded(searchCategories,nowPage);
+                            onCategoryLoaded();
                         }
                     }
                 } else {
@@ -173,11 +178,11 @@ public class ComicsCategoryPresenterImpl implements IComicsCategoryPresenter {
                             mCallback.onLoadMoreEmpty();
                         }
                     } else {
-                        nowPage ++;
+                        mNowPage++;
                         if (! isLoadMore) {
                             onSuccess();
                         } else {
-                            mCallback.onLoadMoreSuccess(mBody,nowPage);
+                            mCallback.onLoadMoreSuccess(mBody, mNowPage);
                         }
                     }
                 } else {
@@ -218,6 +223,18 @@ public class ComicsCategoryPresenterImpl implements IComicsCategoryPresenter {
                 case 3:
                     onEmpty();
                     break;
+                case 4:
+                    onLoadMoreEmpty();
+                    break;
+                case 5:
+                    onSearchSuccess();
+                    break;
+                case 6:
+                    onLoadMoreSuccess();
+                    break;
+                case 7:
+                    onCategoryLoaded();
+                    break;
             }
         }
     }
@@ -237,7 +254,7 @@ public class ComicsCategoryPresenterImpl implements IComicsCategoryPresenter {
 
     private void onSuccess() {
         if (mCallback != null) {
-            mCallback.onCategoryLoaded(mBody,nowPage);
+            mCallback.onCategoryLoaded(mBody, mNowPage);
         } else {
             mState = 1;
         }
@@ -258,4 +275,37 @@ public class ComicsCategoryPresenterImpl implements IComicsCategoryPresenter {
             mState = 3;
         }
     }
+
+    private void onLoadMoreEmpty() {
+        if (mCallback != null) {
+            mCallback.onLoadMoreEmpty();
+        } else {
+            mState = 4;
+        }
+    }
+
+    private void onSearchSuccess() {
+        if (mCallback != null) {
+            mCallback.onSearchSuccess(mSearchCategories, mNowPage, mKeywords);
+        } else {
+            mState = 5;
+        }
+    }
+
+    private void onLoadMoreSuccess() {
+        if (mCallback != null) {
+            mCallback.onLoadMoreSuccess(mSearchCategories,mNowPage);
+        } else {
+            mState = 6;
+        }
+    }
+
+    private void onCategoryLoaded() {
+        if (mCallback != null) {
+            mCallback.onCategoryLoaded(mSearchCategories,mNowPage);
+        } else {
+            mState = 7;
+        }
+    }
+
 }

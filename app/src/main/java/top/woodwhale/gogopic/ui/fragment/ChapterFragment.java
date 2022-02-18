@@ -15,6 +15,7 @@ import top.woodwhale.gogopic.R;
 import top.woodwhale.gogopic.base.BaseFragment;
 import top.woodwhale.gogopic.model.domain.ComicsChapter;
 import top.woodwhale.gogopic.presenter.IEpsChapterPresenter;
+import top.woodwhale.gogopic.ui.activity.WatchComicsActivity;
 import top.woodwhale.gogopic.ui.adapter.ComicsChaptersAdapter;
 import top.woodwhale.gogopic.utils.Constants;
 import top.woodwhale.gogopic.utils.LogUtils;
@@ -22,7 +23,7 @@ import top.woodwhale.gogopic.utils.PresenterManager;
 import top.woodwhale.gogopic.view.IEpsChapterCallback;
 
 @SuppressLint("NonConstantResourceId")
-public class ChapterFragment extends BaseFragment implements IEpsChapterCallback {
+public class ChapterFragment extends BaseFragment implements IEpsChapterCallback, ComicsChaptersAdapter.OnListenChapterButtonClickListener {
 
     @BindView(R.id.rv_eps_chapter) RecyclerView mEspChapterRv;
     private IEpsChapterPresenter mEpsChapterPresenter;
@@ -44,6 +45,8 @@ public class ChapterFragment extends BaseFragment implements IEpsChapterCallback
         // 创建rv适配器
         mComicsChaptersAdapter = new ComicsChaptersAdapter();
         mEspChapterRv.setAdapter(mComicsChaptersAdapter);
+        // 接口回调
+        mComicsChaptersAdapter.registerOnListenChapterButtonClickListener(this);
         // 创建rv布局
         mEspChapterRv.setLayoutManager(new GridLayoutManager(requireContext(),3));
     }
@@ -109,6 +112,9 @@ public class ChapterFragment extends BaseFragment implements IEpsChapterCallback
         if (mEpsChapterPresenter != null) {
             mEpsChapterPresenter.unregisterViewCallback(this);
         }
+        if (mComicsChaptersAdapter != null) {
+            mComicsChaptersAdapter.unregisterOnListenChapterButtonClickListener();
+        }
     }
 
     @Override
@@ -125,5 +131,14 @@ public class ChapterFragment extends BaseFragment implements IEpsChapterCallback
                 layoutView.requestLayout();
             }
         }
+    }
+
+    @Override
+    public void onButtonClick(int order) {
+        LogUtils.d(this,"order --> " +order);
+        Intent intent = new Intent(requireContext(), WatchComicsActivity.class);
+        intent.putExtra(Constants.COMICS_BOOK_ID_KEY,mComicsID);
+        intent.putExtra(Constants.COMICS_BOOK_ORDER_KEY,order);
+        requireActivity().startActivity(intent);
     }
 }

@@ -9,6 +9,7 @@ import top.woodwhale.gogopic.presenter.IHomePresenter;
 import top.woodwhale.gogopic.presenter.IKeywordsPresenter;
 import top.woodwhale.gogopic.presenter.ILoginPresenter;
 import top.woodwhale.gogopic.presenter.IMinePresenter;
+import top.woodwhale.gogopic.presenter.IWatchComicsPresenter;
 import top.woodwhale.gogopic.presenter.impl.ComicsCategoryPresenterImpl;
 import top.woodwhale.gogopic.presenter.impl.ComicsCommentPresenterImpl;
 import top.woodwhale.gogopic.presenter.impl.ComicsInfoPresenterImpl;
@@ -18,6 +19,7 @@ import top.woodwhale.gogopic.presenter.impl.HomePresenterImpl;
 import top.woodwhale.gogopic.presenter.impl.KeywordsPresenterImpl;
 import top.woodwhale.gogopic.presenter.impl.LoginPresenterImpl;
 import top.woodwhale.gogopic.presenter.impl.MinePresenterImpl;
+import top.woodwhale.gogopic.presenter.impl.WatchComicsPresenterImpl;
 
 public class PresenterManager {
     private final IHomePresenter mHomePresenter;
@@ -29,6 +31,7 @@ public class PresenterManager {
     private final IHistoryAndFavoritePresenter mHistoryAndFavoritePresenter;
     private final IEpsChapterPresenter mEpsChapterPresenter;
     private final IComicsCommentPresenter mComicsCommentPresenter;
+    private final IWatchComicsPresenter mWatchComicsPresenter;
 
     public ILoginPresenter getLoginPresenter() {
         return mLoginPresenter;
@@ -57,6 +60,9 @@ public class PresenterManager {
     public IComicsCommentPresenter getComicsCommentPresenter() {
         return mComicsCommentPresenter;
     }
+    public IWatchComicsPresenter getWatchComicsPresenter() {
+        return mWatchComicsPresenter;
+    }
 
     private PresenterManager() {
         mHomePresenter = new HomePresenterImpl();
@@ -68,6 +74,7 @@ public class PresenterManager {
         mHistoryAndFavoritePresenter = new HistoryAndFavoritePresenterImpl();
         mEpsChapterPresenter = new EpsChapterPresenterImpl();
         mComicsCommentPresenter = new ComicsCommentPresenterImpl();
+        mWatchComicsPresenter = new WatchComicsPresenterImpl();
     }
 
     private static final PresenterManager instance = new PresenterManager();

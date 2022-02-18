@@ -98,4 +98,14 @@ public class SharedPreferencesUtils {
         }
         editor.apply();
     }
+
+    // 退出登录
+    public static void exitLogin(Context context) {
+        SharedPreferences.Editor edit = context
+                .getSharedPreferences(LOGIN_PREFERENCE_NAME, Context.MODE_PRIVATE)
+                .edit();
+        // 清空数据就走
+        edit.clear();
+        edit.apply();
+    }
 }

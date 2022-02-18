@@ -12,6 +12,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Url;
 import top.woodwhale.gogopic.model.domain.AuthSignIn;
 import top.woodwhale.gogopic.model.domain.Categories;
+import top.woodwhale.gogopic.model.domain.ComicsBook;
 import top.woodwhale.gogopic.model.domain.ComicsCategory;
 import top.woodwhale.gogopic.model.domain.ComicsChapter;
 import top.woodwhale.gogopic.model.domain.ComicsComment;
@@ -73,5 +74,10 @@ public interface API {
 
     // 发表漫画评论
     @POST
-    Call<ResponseBody> getComicsLaunchComment(@HeaderMap Map<String, String> headerMap, @Url String url, @Body RequestBody body);
+    Call<ResponseBody> getComicsLaunchComment(@HeaderMap Map<String, String> headerMap, @Url String url,
+                                              @Body RequestBody body);
+
+    // 获取漫画本体
+    @GET
+    Call<ComicsBook> getComicsBook(@HeaderMap Map<String, String> headerMap, @Url String url);
 }

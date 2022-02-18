@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:background="@android:color/darker_gray"
     android:layout_height="match_parent">
@@ -7,8 +8,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_watch_comics_content_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:foregroundGravity="center"/>
+        android:layout_height="match_parent" />
     <!--底部小的状态栏-->
     <LinearLayout
         android:id="@+id/small_status"
@@ -77,67 +77,63 @@
             android:id="@+id/preHUAText"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_weight="2">
         </TextView>
         <!--显示或者隐藏状态栏的触发器-->
         <TextView
             android:id="@+id/toogle"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_centerInParent="true"/>
+            android:layout_weight="1" />
         <!--下一话-->
         <TextView
             android:id="@+id/nextHUAText"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
-        </TextView>
+            android:layout_weight="2" />
     </LinearLayout>
-    <!--菜单按钮效果效果区域-->
-    <LinearLayout
-        android:id="@+id/menu_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:visibility="gone">
-        <!--上一话-->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:text="@string/lastEpisode"
-            android:textColor="@color/white"
-            android:background="#50000000"
-            android:gravity="center"
-            android:textSize="30sp">
-        </TextView>
-        <!--显示或者隐藏状态栏的触发器-->
-        <TextView
-
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_centerInParent="true"
-            android:background="#50000000"
-            android:textSize="30sp"
-            android:text="@string/menu"
-            android:textColor="@color/white"
-            android:gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"/>
-        <!--下一话-->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:text="@string/nextEpisode"
-            android:textColor="@color/white"
-            android:background="#50000000"
-            android:gravity="center"
-            android:textSize="30sp">
-        </TextView>
-    </LinearLayout>
+<!--    &lt;!&ndash;菜单按钮效果效果区域&ndash;&gt;-->
+<!--    <LinearLayout-->
+<!--        android:id="@+id/menu_content"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:orientation="vertical"-->
+<!--        android:visibility="gone">-->
+<!--        &lt;!&ndash;上一话&ndash;&gt;-->
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:text="@string/lastEpisode"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:background="#50000000"-->
+<!--            android:gravity="center"-->
+<!--            android:textSize="30sp">-->
+<!--        </TextView>-->
+<!--        &lt;!&ndash;显示或者隐藏状态栏的触发器&ndash;&gt;-->
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:background="#50000000"-->
+<!--            android:textSize="30sp"-->
+<!--            android:text="@string/menu"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:gravity="center"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginBottom="10dp"/>-->
+<!--        &lt;!&ndash;下一话&ndash;&gt;-->
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:text="@string/nextEpisode"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:background="#50000000"-->
+<!--            android:gravity="center"-->
+<!--            android:textSize="30sp">-->
+<!--        </TextView>-->
+<!--    </LinearLayout>-->
 
     <!--顶部栏-->
     <LinearLayout
@@ -146,7 +142,8 @@
         android:layout_height="50dp"
         android:orientation="horizontal"
         android:background="@color/black_light"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:baselineAligned="false">
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -215,14 +212,15 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_above="@+id/bottom_layout"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
         android:background="@color/black_light"
         android:visibility="gone">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:layout_centerInParent="true">
+            android:layout_centerInParent="true"
+            tools:ignore="UselessParent">
             <TextView
                 android:id="@+id/seekBar_help_now"
                 android:layout_width="wrap_content"
@@ -245,8 +243,8 @@
                 android:gravity="center"
                 android:textColor="@color/red_bg"/>
         </LinearLayout>
-
     </RelativeLayout>
+
     <!--底部栏-->
     <LinearLayout
         android:id="@+id/bottom_layout"
@@ -258,7 +256,7 @@
         android:visibility="gone">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="45dp"
             android:orientation="horizontal"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="15dp"
@@ -291,7 +289,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:orientation="horizontal"
             android:layout_marginLeft="20dp"

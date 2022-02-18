@@ -18,7 +18,6 @@ import butterknife.BindView;
 import top.woodwhale.gogopic.R;
 import top.woodwhale.gogopic.base.BaseActivity;
 import top.woodwhale.gogopic.base.BaseFragment;
-import top.woodwhale.gogopic.presenter.IHomePresenter;
 import top.woodwhale.gogopic.ui.fragment.HomeFragment;
 import top.woodwhale.gogopic.ui.fragment.MineFragment;
 import top.woodwhale.gogopic.utils.Constants;
@@ -35,7 +34,6 @@ public class MainActivity extends BaseActivity {
     private MineFragment mMineFragment;
     @BindView(R.id.main_navigation_bar) BottomNavigationView mNavigationView;
     @BindView(R.id.tb_home_toolbar) TitleBar mTitleBar;
-    private IHomePresenter mHomePresenter;
 
     @Override
     protected void initView() {
@@ -78,7 +76,6 @@ public class MainActivity extends BaseActivity {
         mTitleBar.setOnTitleBarListener(new OnTitleBarListener() {
             @Override
             public void onLeftClick(TitleBar titleBar) {
-                // TODO：设置ban书事件
                 handleBanBooks();
             }
 
@@ -88,8 +85,6 @@ public class MainActivity extends BaseActivity {
             }
         });
     }
-
-
 
     /**
      * ban书

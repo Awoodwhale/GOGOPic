@@ -72,4 +72,8 @@ public class UrlUtils {
     public static String getComicsCommentLaunchUrl(String bookID) {
         return "comics/"+bookID+"/comments";
     }
+
+    public static String getComicsBookUrl(String bookId, int bookOrder, int page) {
+        return "comics/"+bookId+"/order/"+bookOrder+"/pages?page="+page;
+    }
 }

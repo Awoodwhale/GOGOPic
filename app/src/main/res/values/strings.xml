@@ -8,7 +8,7 @@
     <string name="text_home">主页</string>
     <string name="text_mine">我的</string>
     <string name="text_network_error_tips">网络错误,点击重试!</string>
-    <string name="electricity">电量</string>
+    <string name="electricity">电量:</string>
     <string name="lastEpisode">上一话</string>
     <string name="menu">菜单</string>
     <string name="nextEpisode">下一话</string>
