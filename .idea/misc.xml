@@ -19,7 +19,7 @@
         <entry key="..\:/Environment/Android/AndroidStudioProjects/GOGOPic/app/src/main/res/layout/activity_show_category.xml" value="0.1716612377850163" />
         <entry key="..\:/Environment/Android/AndroidStudioProjects/GOGOPic/app/src/main/res/layout/activity_show_comics.xml" value="0.2439814814814815" />
         <entry key="..\:/Environment/Android/AndroidStudioProjects/GOGOPic/app/src/main/res/layout/activity_test.xml" value="0.205859375" />
-        <entry key="..\:/Environment/Android/AndroidStudioProjects/GOGOPic/app/src/main/res/layout/activity_watch_comics.xml" value="0.2" />
+        <entry key="..\:/Environment/Android/AndroidStudioProjects/GOGOPic/app/src/main/res/layout/activity_watch_comics.xml" value="0.2406392694063927" />
         <entry key="..\:/Environment/Android/AndroidStudioProjects/GOGOPic/app/src/main/res/layout/base_fragment_layout.xml" value="0.1716612377850163" />
         <entry key="..\:/Environment/Android/AndroidStudioProjects/GOGOPic/app/src/main/res/layout/fragment_chapter.xml" value="0.2439814814814815" />
         <entry key="..\:/Environment/Android/AndroidStudioProjects/GOGOPic/app/src/main/res/layout/fragment_comment.xml" value="0.2439814814814815" />
@@ -28,11 +28,12 @@
         <entry key="..\:/Environment/Android/AndroidStudioProjects/GOGOPic/app/src/main/res/layout/fragment_home.xml" value="0.175625" />
         <entry key="..\:/Environment/Android/AndroidStudioProjects/GOGOPic/app/src/main/res/layout/fragment_mine.xml" value="0.17335526315789473" />
         <entry key="..\:/Environment/Android/AndroidStudioProjects/GOGOPic/app/src/main/res/layout/include_home_top_title.xml" value="0.175625" />
+        <entry key="..\:/Environment/Android/AndroidStudioProjects/GOGOPic/app/src/main/res/layout/item_comics_book_content.xml" value="0.2439814814814815" />
         <entry key="..\:/Environment/Android/AndroidStudioProjects/GOGOPic/app/src/main/res/layout/item_comics_category_content.xml" value="0.17335526315789473" />
         <entry key="..\:/Environment/Android/AndroidStudioProjects/GOGOPic/app/src/main/res/layout/item_comics_chapter.xml" value="0.2439814814814815" />
         <entry key="..\:/Environment/Android/AndroidStudioProjects/GOGOPic/app/src/main/res/layout/item_comics_comment.xml" value="0.2439814814814815" />
         <entry key="..\:/Environment/Android/AndroidStudioProjects/GOGOPic/app/src/main/res/layout/item_comics_main_content.xml" value="0.17335526315789473" />
-        <entry key="..\:/Environment/Android/AndroidStudioProjects/GOGOPic/app/src/main/res/layout/item_home_content.xml" value="0.1" />
+        <entry key="..\:/Environment/Android/AndroidStudioProjects/GOGOPic/app/src/main/res/layout/item_home_content.xml" value="0.2406392694063927" />
         <entry key="..\:/Environment/Android/AndroidStudioProjects/GOGOPic/app/src/main/res/layout/item_home_pager_content.xml" value="0.27025641025641023" />
         <entry key="..\:/Environment/Android/AndroidStudioProjects/GOGOPic/app/src/main/res/layout/layout_loading_view.xml" value="0.205859375" />
         <entry key="..\:/Environment/Android/AndroidStudioProjects/GOGOPic/app/src/main/res/menu/navigation_items.xml" value="0.16302083333333334" />
@@ -40,7 +41,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

@@ -126,6 +126,7 @@ public class LoginActivity extends BaseActivity implements ILoginCallback {
      */
     @Override
     public void onAccountOrPasswordError() {
+        showSuccess();  // 账号密码错误，得显示界面
         RxToast.error("账户或密码错误！");
         mAccountEt.setText("");
         mPasswordEt.setText("");

@@ -1,16 +1,36 @@
+<!--<resources xmlns:tools="http://schemas.android.com/tools">-->
+<!--    &lt;!&ndash; Base application theme. &ndash;&gt;-->
+<!--    <style name="Theme.GOGOPic" parent="Theme.AppCompat.DayNight.NoActionBar">-->
+<!--        &lt;!&ndash; Primary brand color. &ndash;&gt;-->
+<!--        <item name="colorPrimary">@color/purple_200</item>-->
+<!--        <item name="colorPrimaryVariant">@color/purple_700</item>-->
+<!--        <item name="colorOnPrimary">@color/black</item>-->
+<!--        &lt;!&ndash; Secondary brand color. &ndash;&gt;-->
+<!--        <item name="colorSecondary">@color/teal_200</item>-->
+<!--        <item name="colorSecondaryVariant">@color/teal_200</item>-->
+<!--        <item name="colorOnSecondary">@color/black</item>-->
+<!--        &lt;!&ndash; Status bar color. &ndash;&gt;-->
+<!--        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>-->
+<!--        &lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+<!--    </style>-->
+<!--</resources>-->
+<!-- 先和白天一样，之后再更改 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.GOGOPic" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <style name="Theme.GOGOPic" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/pink_dark</item>
+        <item name="colorPrimaryDark">@color/pink_light</item>
+        <item name="colorAccent">@color/pink_dark</item>
+        <!--可以修改背景颜色和水波纹的颜色：-->
+        <!--        <item name="colorControlHighlight">@color/pink_dark</item>-->
+        <!--        <item name="colorButtonNormal">@color/material_blue_grey_800</item>-->
+    </style>
+
+    <style name="myDropTheme" parent="Widget.AppCompat.DropDownItem.Spinner">
+        <!-- 分隔线颜色 -->
+        <!--        <item name="android:divider">#E5E5E5</item>-->
+        <!--        <item name="android:dividerHeight">1dp</item>-->
+        <item name="android:textSize">14sp</item>
     </style>
 </resources>

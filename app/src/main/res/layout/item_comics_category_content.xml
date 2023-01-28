@@ -86,11 +86,12 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
             android:layout_height="wrap_content">
+
             <ImageView
+                android:id="@+id/iv_comics_category_love"
                 android:layout_width="21dp"
                 android:layout_height="21dp"
-                android:id="@+id/iv_comics_category_love"
-                android:src="@mipmap/love"/>
+                android:src="@mipmap/love" />
 
             <TextView
                 android:id="@+id/tv_comics_category_love_count"

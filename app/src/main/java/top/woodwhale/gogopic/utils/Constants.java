@@ -24,6 +24,7 @@ public class Constants {
     public static final String HISTORY_OR_FAVORITE_KEY = "history_or_favorite_key";
     public static final String COMICS_BOOK_ID_KEY = "comics_book_id_key";
     public static final String COMICS_BOOK_ORDER_KEY = "comics_book_order_key";
+    public static final String COMICS_BOOK_CHAPTERS_SIZE = "comics_book_chapters_size";
     // 所有分类
     public static ArrayList<String> CATEGORISE_LISTS = new ArrayList<>();
     // 被ban后的分类

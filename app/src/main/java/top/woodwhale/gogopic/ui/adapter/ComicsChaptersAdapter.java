@@ -16,7 +16,7 @@ import top.woodwhale.gogopic.R;
 import top.woodwhale.gogopic.model.domain.ComicsChapter;
 
 public class ComicsChaptersAdapter extends RecyclerView.Adapter<ComicsChaptersAdapter.InnerHolder> {
-    private final List<ComicsChapter.DataBean.EpsBean.DocsBean> mDocsBeans = new ArrayList<>();
+    public final List<ComicsChapter.DataBean.EpsBean.DocsBean> mDocsBeans = new ArrayList<>();
     private OnListenChapterButtonClickListener listener;
 
     public interface OnListenChapterButtonClickListener{
@@ -42,13 +42,10 @@ public class ComicsChaptersAdapter extends RecyclerView.Adapter<ComicsChaptersAd
     public void onBindViewHolder(@NonNull InnerHolder holder, int position) {
         ComicsChapter.DataBean.EpsBean.DocsBean docsBean = mDocsBeans.get(position);
         holder.setData(docsBean);
-        holder.mComicsChapterBt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int order = docsBean.getOrder();
-                if (listener != null) {
-                    listener.onButtonClick(order);
-                }
+        holder.mComicsChapterBt.setOnClickListener(v -> {
+            int order = docsBean.getOrder();
+            if (listener != null) {
+                listener.onButtonClick(order);
             }
         });
     }

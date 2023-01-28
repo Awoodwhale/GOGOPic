@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@android:color/darker_gray"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/darker_gray">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_watch_comics_content_list"
@@ -18,191 +19,207 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/shape_round_rect"
         android:orientation="horizontal">
+
         <TextView
             android:id="@+id/comic_name_bottom"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textColor="@color/grey_bg"
-            android:gravity="center"
             android:layout_marginStart="2dp"
+            android:gravity="center"
             android:maxLines="1"
-            android:textSize="12sp"/>
+            android:textColor="@color/grey_bg"
+            android:textSize="12sp" />
+
         <TextView
             android:id="@+id/comic_pic_state"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:textColor="@color/grey_bg"
             android:layout_marginStart="10dp"
+            android:gravity="center"
             android:maxLines="1"
-            android:textSize="12sp"/>
+            android:textColor="@color/grey_bg"
+            android:textSize="12sp" />
+
         <TextView
             android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:textColor="@color/grey_bg"
             android:layout_marginStart="10dp"
+            android:gravity="center"
             android:maxLines="1"
-            android:textSize="12sp"/>
+            android:textColor="@color/grey_bg"
+            android:textSize="12sp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:textColor="@color/grey_bg"
-            android:text="@string/electricity"
             android:layout_marginStart="10dp"
+            android:gravity="center"
             android:maxLines="1"
-            android:textSize="12sp"/>
+            android:text="@string/electricity"
+            android:textColor="@color/grey_bg"
+            android:textSize="12sp" />
+
         <TextView
             android:id="@+id/battery"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginEnd="20dp"
             android:gravity="center"
             android:maxLines="1"
             android:textColor="@color/grey_bg"
-            android:layout_marginEnd="20dp"
-            android:textSize="12sp"/>
+            android:textSize="12sp" />
     </LinearLayout>
 
     <!--菜单按钮区域(实际作用区域)-->
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/menu_ctrl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:visibility="visible">
         <!--上一话-->
-        <TextView
-            android:id="@+id/preHUAText"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2">
-        </TextView>
+        <!--        <TextView-->
+        <!--            android:id="@+id/preHUAText"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="0dp"-->
+        <!--            android:layout_weight="2"/>-->
         <!--显示或者隐藏状态栏的触发器-->
         <TextView
             android:id="@+id/toogle"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@mipmap/watching_setting"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.76" />
         <!--下一话-->
-        <TextView
-            android:id="@+id/nextHUAText"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2" />
-    </LinearLayout>
-<!--    &lt;!&ndash;菜单按钮效果效果区域&ndash;&gt;-->
-<!--    <LinearLayout-->
-<!--        android:id="@+id/menu_content"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:orientation="vertical"-->
-<!--        android:visibility="gone">-->
-<!--        &lt;!&ndash;上一话&ndash;&gt;-->
-<!--        <TextView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="0dp"-->
-<!--            android:layout_weight="1"-->
-<!--            android:text="@string/lastEpisode"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:background="#50000000"-->
-<!--            android:gravity="center"-->
-<!--            android:textSize="30sp">-->
-<!--        </TextView>-->
-<!--        &lt;!&ndash;显示或者隐藏状态栏的触发器&ndash;&gt;-->
-<!--        <TextView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="0dp"-->
-<!--            android:layout_weight="1"-->
-<!--            android:background="#50000000"-->
-<!--            android:textSize="30sp"-->
-<!--            android:text="@string/menu"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:gravity="center"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:layout_marginBottom="10dp"/>-->
-<!--        &lt;!&ndash;下一话&ndash;&gt;-->
-<!--        <TextView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="0dp"-->
-<!--            android:layout_weight="1"-->
-<!--            android:text="@string/nextEpisode"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:background="#50000000"-->
-<!--            android:gravity="center"-->
-<!--            android:textSize="30sp">-->
-<!--        </TextView>-->
-<!--    </LinearLayout>-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/nextHUAText"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="0dp"-->
+        <!--            android:layout_weight="2" />-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <!--    &lt;!&ndash;菜单按钮效果效果区域&ndash;&gt;-->
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/menu_content"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:orientation="vertical"-->
+    <!--        android:visibility="gone">-->
+    <!--        &lt;!&ndash;上一话&ndash;&gt;-->
+    <!--        <TextView-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="0dp"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:text="@string/lastEpisode"-->
+    <!--            android:textColor="@color/white"-->
+    <!--            android:background="#50000000"-->
+    <!--            android:gravity="center"-->
+    <!--            android:textSize="30sp">-->
+    <!--        </TextView>-->
+    <!--        &lt;!&ndash;显示或者隐藏状态栏的触发器&ndash;&gt;-->
+    <!--        <TextView-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="0dp"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:background="#50000000"-->
+    <!--            android:textSize="30sp"-->
+    <!--            android:text="@string/menu"-->
+    <!--            android:textColor="@color/white"-->
+    <!--            android:gravity="center"-->
+    <!--            android:layout_marginTop="10dp"-->
+    <!--            android:layout_marginBottom="10dp"/>-->
+    <!--        &lt;!&ndash;下一话&ndash;&gt;-->
+    <!--        <TextView-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="0dp"-->
+    <!--            android:layout_weight="1"-->
+    <!--            android:text="@string/nextEpisode"-->
+    <!--            android:textColor="@color/white"-->
+    <!--            android:background="#50000000"-->
+    <!--            android:gravity="center"-->
+    <!--            android:textSize="30sp">-->
+    <!--        </TextView>-->
+    <!--    </LinearLayout>-->
 
     <!--顶部栏-->
     <LinearLayout
         android:id="@+id/top_layout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal"
         android:background="@color/black_light"
-        android:visibility="gone"
-        android:baselineAligned="false">
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="horizontal">
+
             <Button
                 android:id="@+id/back_btn"
                 android:layout_width="16dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="15dp"
-                android:background="@mipmap/back"/>
+                android:background="@mipmap/back" />
+
             <TextView
                 android:id="@+id/comic_name"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_gravity="center_vertical"
-                android:gravity="center"
                 android:layout_marginStart="10dp"
-                android:textColor="@color/white"/>
+                android:gravity="center"
+                android:textColor="@color/white" />
+
             <TextView
                 android:id="@+id/comic_pic_state_top"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:layout_marginStart="10dp"
-                android:textColor="@color/white"
                 android:layout_gravity="center_vertical"
-                android:gravity="center"/>
+                android:layout_marginStart="10dp"
+                android:gravity="center"
+                android:textColor="@color/white" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_marginStart="10dp">
+            android:layout_marginStart="10dp"
+            android:orientation="horizontal">
+
             <Button
                 android:id="@+id/bt_comics_show_info"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@mipmap/info"
-                android:layout_marginRight="10dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@mipmap/info" />
+
             <Button
                 android:id="@+id/bt_comics_comment"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@mipmap/comment"
-                android:layout_marginRight="10dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@mipmap/comment" />
+
             <Button
                 android:id="@+id/bt_comics_download"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@mipmap/download"
-                android:layout_marginRight="10dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@mipmap/download" />
         </LinearLayout>
     </LinearLayout>
 
@@ -215,33 +232,37 @@
         android:layout_marginBottom="5dp"
         android:background="@color/black_light"
         android:visibility="gone">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
             android:layout_centerInParent="true"
+            android:orientation="horizontal"
             tools:ignore="UselessParent">
+
             <TextView
                 android:id="@+id/seekBar_help_now"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center"
                 android:layout_gravity="center"
-                android:textColor="@color/red_bg"/>
+                android:gravity="center"
+                android:textColor="@color/red_bg" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center"
                 android:layout_gravity="center"
+                android:gravity="center"
                 android:text="@string/pagination"
-                android:textColor="@color/red_bg"/>
+                android:textColor="@color/red_bg" />
+
             <TextView
                 android:id="@+id/seekBar_help_num"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:textColor="@color/red_bg"/>
+                android:textColor="@color/red_bg" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -250,67 +271,74 @@
         android:id="@+id/bottom_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_alignParentBottom="true"
         android:background="@color/black_light"
+        android:orientation="vertical"
         android:visibility="gone">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp"
             android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="15dp"
-            android:layout_marginTop="10dp">
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+            <!-- 上一话-->
             <TextView
                 android:id="@+id/preHUA"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:gravity="center"
                 android:text="@string/lastEpisode"
-                android:textColor="@color/white_smoke"
-                android:gravity="center"/>
+                android:textColor="@color/white_smoke" />
+
             <SeekBar
                 android:id="@+id/bottom_seekBar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:layout_gravity="center"/>
+                android:layout_weight="1" />
+            <!--  下一话-->
             <TextView
                 android:id="@+id/nextHUA"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:gravity="center"
                 android:text="@string/nextEpisode"
-                android:textColor="@color/white_smoke"
-                android:gravity="center"/>
+                android:textColor="@color/white_smoke" />
         </LinearLayout>
         <!--底部菜单栏-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:orientation="horizontal"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp">
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
             <LinearLayout
                 android:id="@+id/indexBtn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
+
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@mipmap/directory"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:src="@mipmap/directory" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:textColor="@color/white_smoke"
-                    android:text="@string/directory"/>
+                    android:text="@string/directory"
+                    android:textColor="@color/white_smoke" />
             </LinearLayout>
 
             <LinearLayout
@@ -319,58 +347,66 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
+
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@mipmap/download"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:src="@mipmap/download" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:layout_gravity="center"
-                    android:textColor="@color/white_smoke"
-                    android:text="@string/download"/>
+                    android:gravity="center"
+                    android:text="@string/download"
+                    android:textColor="@color/white_smoke" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/light_btn"
+                android:id="@+id/ll_comics_collect"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
+
                 <ImageView
+                    android:id="@+id/iv_comics_collect"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@mipmap/not_collect"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:src="@mipmap/not_collect" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:layout_gravity="center"
-                    android:textColor="@color/white_smoke"
-                    android:text="@string/collect"/>
+                    android:gravity="center"
+                    android:text="@string/collect"
+                    android:textColor="@color/white_smoke" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/phone_switch"
+                android:id="@+id/like_click"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
+
                 <ImageView
+                    android:id="@+id/iv_comics_like"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@mipmap/not_like"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:src="@mipmap/not_like" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:layout_gravity="center"
-                    android:textColor="@color/white_smoke"
-                    android:text="@string/favorite"/>
+                    android:gravity="center"
+                    android:text="@string/favorite"
+                    android:textColor="@color/white_smoke" />
             </LinearLayout>
 
             <LinearLayout
@@ -379,18 +415,20 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
+
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@mipmap/netflow"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:src="@mipmap/netflow" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:layout_gravity="center"
-                    android:textColor="@color/white_smoke"
-                    android:text="@string/netflow"/>
+                    android:gravity="center"
+                    android:text="@string/netflow"
+                    android:textColor="@color/white_smoke" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

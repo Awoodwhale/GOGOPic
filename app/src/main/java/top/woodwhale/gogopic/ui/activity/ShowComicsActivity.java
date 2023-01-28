@@ -37,23 +37,40 @@ import top.woodwhale.gogopic.view.IComicsInfoCallback;
 @SuppressLint("NonConstantResourceId")
 public class ShowComicsActivity extends BaseActivity implements IComicsInfoCallback {
 
-    @BindView(R.id.iv_comics_category_front_cover) ImageView mFrontCoverIv;
-    @BindView(R.id.tv_comics_category_title) TextView mTitleTv;
-    @BindView(R.id.iv_comics_category_author) TextView mAuthorTv;
-    @BindView(R.id.tv_comics_category_classification) TextView mClassificationTv;
-    @BindView(R.id.tv_comics_category_is_it_over) TextView mIsOverTv;
-    @BindView(R.id.tv_comics_category_love_count) TextView mLoveCountTv;
-    @BindView(R.id.tv_comics_category_pagination) TextView mPaginationTv;
-    @BindView(R.id.tv_comics_category_watch_count) TextView mWatchCountTv;
-    @BindView(R.id.tcl_comics_tag) TagContainerLayout mComicsTagsTcl;
-    @BindView(R.id.tb_comics_main_info_title) TitleBar mTitleBar;
-    @BindView(R.id.iv_comics_click_like) ImageView mClickLikeIv;
-    @BindView(R.id.iv_comics_click_collect) ImageView mClickCollectIv;
-    @BindView(R.id.tv_comics_description) TextView mComicsDescriptionTv;
-    @BindView(R.id.tv_comics_creator) TextView mComicsCreatorTv;
-    @BindView(R.id.tv_comics_chineseTeam) TextView mComicsChineseTeam;
-    @BindView(R.id.tl_comics_tabs) TabLayout mComicsTabsTb;
-    @BindView(R.id.vp2_comics_chapter_or_comment) ViewPager2 mComicsChapterOrCommentVp2;
+    @BindView(R.id.iv_comics_category_front_cover)
+    ImageView mFrontCoverIv;
+    @BindView(R.id.tv_comics_category_title)
+    TextView mTitleTv;
+    @BindView(R.id.iv_comics_category_author)
+    TextView mAuthorTv;
+    @BindView(R.id.tv_comics_category_classification)
+    TextView mClassificationTv;
+    @BindView(R.id.tv_comics_category_is_it_over)
+    TextView mIsOverTv;
+    @BindView(R.id.tv_comics_category_love_count)
+    TextView mLoveCountTv;
+    @BindView(R.id.tv_comics_category_pagination)
+    TextView mPaginationTv;
+    @BindView(R.id.tv_comics_category_watch_count)
+    TextView mWatchCountTv;
+    @BindView(R.id.tcl_comics_tag)
+    TagContainerLayout mComicsTagsTcl;
+    @BindView(R.id.tb_comics_main_info_title)
+    TitleBar mTitleBar;
+    @BindView(R.id.iv_comics_click_like)
+    ImageView mClickLikeIv;
+    @BindView(R.id.iv_comics_click_collect)
+    ImageView mClickCollectIv;
+    @BindView(R.id.tv_comics_description)
+    TextView mComicsDescriptionTv;
+    @BindView(R.id.tv_comics_creator)
+    TextView mComicsCreatorTv;
+    @BindView(R.id.tv_comics_chineseTeam)
+    TextView mComicsChineseTeam;
+    @BindView(R.id.tl_comics_tabs)
+    TabLayout mComicsTabsTb;
+    @BindView(R.id.vp2_comics_chapter_or_comment)
+    ViewPager2 mComicsChapterOrCommentVp2;
 
     private String mComicsID;
     private IComicsInfoPresenter mComicsInfoPresenter;
@@ -75,7 +92,7 @@ public class ShowComicsActivity extends BaseActivity implements IComicsInfoCallb
         onLoading();
         Intent intent = getIntent();
         mComicsID = intent.getStringExtra(Constants.CATEGORY_ID_KEY);
-        LogUtils.d(this,"id --> " + mComicsID);
+        LogUtils.d(this, "id --> " + mComicsID);
     }
 
     @Override
@@ -140,7 +157,7 @@ public class ShowComicsActivity extends BaseActivity implements IComicsInfoCallb
     private void doSearchTagsOrAuthor(String text) {
         IComicsCategoryPresenter categoryPresenter = PresenterManager.getInstance().getCategoryPresenter();
         categoryPresenter.getSearchCategoryComics(text);
-        Intent intent = new Intent(ShowComicsActivity.this,ShowCategoryActivity.class);
+        Intent intent = new Intent(ShowComicsActivity.this, ShowCategoryActivity.class);
         startActivity(intent);
     }
 
@@ -241,19 +258,19 @@ public class ShowComicsActivity extends BaseActivity implements IComicsInfoCallb
         mComicsDescriptionTv.setText(comic.getDescription());
         // 设置漫画上传者
         String name = comic.getCreator().getName();
-        String uploadTime = " (" +(comic.getUpdatedAt().split("\\.")[0]).
-                replace("T", " ")+")";
-        mComicsCreatorTv.setText(name + "\n" +uploadTime);
+        String uploadTime = " (" + (comic.getUpdatedAt().split("\\.")[0]).
+                replace("T", " ") + ")";
+        mComicsCreatorTv.setText(name + "\n" + uploadTime);
         // 设置汉化组
         mComicsChineseTeam.setText(comic.getChineseTeam());
         // 设置tags
         mComicsTagsTcl.setTags(comic.getTags());
         // 喜欢人数
         int likesCount = comic.getLikesCount();
-        mLoveCountTv.setText(likesCount+"");
+        mLoveCountTv.setText(likesCount + "");
         // 观看人数
         int watchCount = comic.getViewsCount();
-        mWatchCountTv.setText(watchCount+"");
+        mWatchCountTv.setText(watchCount + "");
         // 作者
         String author = comic.getAuthor();
         mAuthorTv.setText(author);
@@ -273,12 +290,12 @@ public class ShowComicsActivity extends BaseActivity implements IComicsInfoCallb
         // 分页
         int epsCount = comic.getEpsCount();
         int pagesCount = comic.getPagesCount();
-        mPaginationTv.setText(epsCount+" E / "+pagesCount+" P");
+        mPaginationTv.setText(epsCount + " E / " + pagesCount + " P");
         // 设置封面
         ComicsMain.DataBean.ComicBean.ThumbBean thumb = comic.getThumb();
         String fileServer = thumb.getFileServer();
         String path = thumb.getPath();
-        String url = UrlUtils.getAddStaticPicPathUrl(fileServer,path);
+        String url = UrlUtils.getAddStaticPicPathUrl(fileServer, path);
         Glide.with(this)
                 .load(url)
                 .thumbnail(0.1f)
@@ -299,7 +316,7 @@ public class ShowComicsActivity extends BaseActivity implements IComicsInfoCallb
                         tab.setText("章节");
                         break;
                     case 1:
-                        tab.setText("评论("+mCommentsCount+")");
+                        tab.setText("评论(" + mCommentsCount + ")");
                         break;
                 }
             }

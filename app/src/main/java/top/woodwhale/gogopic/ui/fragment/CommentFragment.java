@@ -34,12 +34,18 @@ import top.woodwhale.gogopic.view.IComicsCommentCallback;
 @SuppressLint("NonConstantResourceId")
 public class CommentFragment extends BaseFragment implements IComicsCommentCallback {
 
-    @BindView(R.id.bt_comics_launch_comment) Button mLaunchCommentBtn;
-    @BindView(R.id.bt_comics_goto_page) Button mGotoPageBtn;
-    @BindView(R.id.rv_comics_comment_content_list) RecyclerView mCommentContentListRv;
-    @BindView(R.id.bt_comics_before_comment) Button mBeforeBtn;
-    @BindView(R.id.bt_comics_next_comment) Button mNextBtn;
-    @BindView(R.id.tv_comics_comment_pages) TextView mPagesTv;
+    @BindView(R.id.bt_comics_launch_comment)
+    Button mLaunchCommentBtn;
+    @BindView(R.id.bt_comics_goto_page)
+    Button mGotoPageBtn;
+    @BindView(R.id.rv_comics_comment_content_list)
+    RecyclerView mCommentContentListRv;
+    @BindView(R.id.bt_comics_before_comment)
+    Button mBeforeBtn;
+    @BindView(R.id.bt_comics_next_comment)
+    Button mNextBtn;
+    @BindView(R.id.tv_comics_comment_pages)
+    TextView mPagesTv;
     private ComicsCommentAdapter mComicsCommentAdapter;
     private IComicsCommentPresenter mComicsCommentPresenter;
     private String mComicsID;
@@ -56,7 +62,7 @@ public class CommentFragment extends BaseFragment implements IComicsCommentCallb
         onLoading();
         Intent intent = requireActivity().getIntent();
         mComicsID = intent.getStringExtra(Constants.CATEGORY_ID_KEY);
-        LogUtils.d(this,"id --> " + mComicsID);
+        LogUtils.d(this, "id --> " + mComicsID);
         // Rv适配器
         mComicsCommentAdapter = new ComicsCommentAdapter();
         mCommentContentListRv.setAdapter(mComicsCommentAdapter);
@@ -72,7 +78,7 @@ public class CommentFragment extends BaseFragment implements IComicsCommentCallb
 
     @Override
     protected void loadData() {
-        mComicsCommentPresenter.getComment(mComicsID,mNowPage);
+        mComicsCommentPresenter.getComment(mComicsID, mNowPage);
     }
 
     @Override
@@ -97,7 +103,7 @@ public class CommentFragment extends BaseFragment implements IComicsCommentCallb
         mPages = body.getData().getComments().getPages();
         mNextBtn.setVisibility(mNowPage == mPages ? View.GONE : View.VISIBLE);
         mBeforeBtn.setVisibility(mNowPage > 1 ? View.VISIBLE : View.GONE);
-        mPagesTv.setText(mNowPage+" / " + mPages + " 页");
+        mPagesTv.setText(mNowPage + " / " + mPages + " 页");
         handleRefreshPage();
         showSuccess();
     }
@@ -105,7 +111,7 @@ public class CommentFragment extends BaseFragment implements IComicsCommentCallb
     @Override
     public void onCommentLaunched(String body) {
         RxToast.info("评论成功!");
-        mComicsCommentPresenter.getComment(mComicsID,1);
+        mComicsCommentPresenter.getComment(mComicsID, 1);
     }
 
     @Override
@@ -125,7 +131,7 @@ public class CommentFragment extends BaseFragment implements IComicsCommentCallb
             public void onGlobalLayout() {
                 int measuredHeight = tmpLayout.getMeasuredHeight();
                 if (measuredHeight != 0) {
-                    tmp.scrollTo(0,measuredHeight);
+                    tmp.scrollTo(0, measuredHeight);
                     tmpLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 }
             }
@@ -171,13 +177,13 @@ public class CommentFragment extends BaseFragment implements IComicsCommentCallb
                 if (toPage >= 1 && toPage <= mPages) {
                     onLoading();
                     mNowPage = toPage;
-                    mComicsCommentPresenter.getComment(mComicsID,mNowPage);
+                    mComicsCommentPresenter.getComment(mComicsID, mNowPage);
                 } else {
                     RxToast.warning("请输入有效页数!");
                 }
             }
         });
-        editDialog.setNegativeButton("取消",null);
+        editDialog.setNegativeButton("取消", null);
         editDialog.show();
     }
 
@@ -192,12 +198,12 @@ public class CommentFragment extends BaseFragment implements IComicsCommentCallb
             String comment = editText.getText().toString().trim();
             if (!TextUtils.isEmpty(comment)) {
                 onLoading();
-                mComicsCommentPresenter.launchComment(mComicsID,comment);
+                mComicsCommentPresenter.launchComment(mComicsID, comment);
             } else {
                 RxToast.warning("请输入有效内容!");
             }
         });
-        editDialog.setNegativeButton("取消",null);
+        editDialog.setNegativeButton("取消", null);
         editDialog.show();
     }
 
@@ -220,11 +226,12 @@ public class CommentFragment extends BaseFragment implements IComicsCommentCallb
         super.onResume();
         setProperHeightOfView();
     }
+
     private void setProperHeightOfView() {
         View layoutView = requireView().findViewById(R.id.ll_comics_comment_container);
         if (layoutView != null) {
             ViewGroup.LayoutParams layoutParams = layoutView.getLayoutParams();
-            if (layoutParams!=null) {
+            if (layoutParams != null) {
                 layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                 layoutView.requestLayout();
             }

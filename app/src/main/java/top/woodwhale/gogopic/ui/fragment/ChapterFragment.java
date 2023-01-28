@@ -25,7 +25,8 @@ import top.woodwhale.gogopic.view.IEpsChapterCallback;
 @SuppressLint("NonConstantResourceId")
 public class ChapterFragment extends BaseFragment implements IEpsChapterCallback, ComicsChaptersAdapter.OnListenChapterButtonClickListener {
 
-    @BindView(R.id.rv_eps_chapter) RecyclerView mEspChapterRv;
+    @BindView(R.id.rv_eps_chapter)
+    RecyclerView mEspChapterRv;
     private IEpsChapterPresenter mEpsChapterPresenter;
     private String mComicsID;
     private ComicsChaptersAdapter mComicsChaptersAdapter;
@@ -41,14 +42,14 @@ public class ChapterFragment extends BaseFragment implements IEpsChapterCallback
         onLoading();
         Intent intent = requireActivity().getIntent();
         mComicsID = intent.getStringExtra(Constants.CATEGORY_ID_KEY);
-        LogUtils.d(this,"id --> " + mComicsID);
+        LogUtils.d(this, "id --> " + mComicsID);
         // 创建rv适配器
         mComicsChaptersAdapter = new ComicsChaptersAdapter();
         mEspChapterRv.setAdapter(mComicsChaptersAdapter);
         // 接口回调
         mComicsChaptersAdapter.registerOnListenChapterButtonClickListener(this);
         // 创建rv布局
-        mEspChapterRv.setLayoutManager(new GridLayoutManager(requireContext(),3));
+        mEspChapterRv.setLayoutManager(new GridLayoutManager(requireContext(), 3));
     }
 
     @Override
@@ -59,7 +60,7 @@ public class ChapterFragment extends BaseFragment implements IEpsChapterCallback
 
     @Override
     protected void loadData() {
-        mEpsChapterPresenter.getEpsChapter(mComicsID,1,false);
+        mEpsChapterPresenter.getEpsChapter(mComicsID, 1, false);
     }
 
     @Override
@@ -100,10 +101,10 @@ public class ChapterFragment extends BaseFragment implements IEpsChapterCallback
      * 处理更多页数加载
      */
     private void handleMoreChapter() {
-        LogUtils.d(this,"handleMoreChapter..." + " page --> " + mPages);
-        for (int i = mPages; i >= 2 ; i--) {
-            LogUtils.d(this,"page --> " + i);
-            mEpsChapterPresenter.getEpsChapter(mComicsID,i,true);
+        LogUtils.d(this, "handleMoreChapter..." + " page --> " + mPages);
+        for (int i = mPages; i >= 2; i--) {
+            LogUtils.d(this, "page --> " + i);
+            mEpsChapterPresenter.getEpsChapter(mComicsID, i, true);
         }
     }
 
@@ -122,11 +123,12 @@ public class ChapterFragment extends BaseFragment implements IEpsChapterCallback
         super.onResume();
         setProperHeightOfView();
     }
+
     private void setProperHeightOfView() {
         View layoutView = requireView().findViewById(R.id.ll_comics_chapter_container);
         if (layoutView != null) {
             ViewGroup.LayoutParams layoutParams = layoutView.getLayoutParams();
-            if (layoutParams!=null) {
+            if (layoutParams != null) {
                 layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                 layoutView.requestLayout();
             }
@@ -135,10 +137,11 @@ public class ChapterFragment extends BaseFragment implements IEpsChapterCallback
 
     @Override
     public void onButtonClick(int order) {
-        LogUtils.d(this,"order --> " +order);
+        LogUtils.d(this, "order --> " + order);
         Intent intent = new Intent(requireContext(), WatchComicsActivity.class);
-        intent.putExtra(Constants.COMICS_BOOK_ID_KEY,mComicsID);
-        intent.putExtra(Constants.COMICS_BOOK_ORDER_KEY,order);
+        intent.putExtra(Constants.COMICS_BOOK_ID_KEY, mComicsID);
+        intent.putExtra(Constants.COMICS_BOOK_ORDER_KEY, order);
+        intent.putExtra(Constants.COMICS_BOOK_CHAPTERS_SIZE, mComicsChaptersAdapter.mDocsBeans.size());
         requireActivity().startActivity(intent);
     }
 }
