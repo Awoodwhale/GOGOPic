@@ -15,9 +15,7 @@
         <!-- 主页-->
         <activity
             android:name=".ui.activity.MainActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true" />
         <!-- 启动触发的activity 登录-->
         <activity
             android:name=".ui.activity.LoginActivity"
@@ -28,31 +26,30 @@
             </intent-filter>
         </activity>
 
-        <!--分类展示，删除了android:launchMode="singleTask"-->
+        <!--分类展示-->
         <activity
             android:name=".ui.activity.ShowCategoryActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"
+            android:launchMode="singleTask" />
         <!--搜索-->
         <activity
             android:name=".ui.activity.SearchActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <!--查看漫画信息-->
         <activity
             android:name=".ui.activity.ShowComicsActivity"
             android:exported="true"
-            android:launchMode="singleTask"></activity>
+            android:launchMode="singleTask" />
         <!--历史记录、收藏-->
         <activity
             android:name=".ui.activity.HistoryAndFavoriteActivity"
             android:exported="true"
-            android:launchMode="singleTask"></activity>
+            android:launchMode="singleTask" />
         <!--看漫画-->
         <activity
             android:name=".ui.activity.WatchComicsActivity"
             android:exported="true"
-            android:launchMode="singleTop"></activity>
+            android:launchMode="singleTop" />
 
     </application>
 
